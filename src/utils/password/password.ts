@@ -1,6 +1,6 @@
 import { PasswordCharsSet, PasswordStrength } from '../../constants/password';
 
-interface PasswordGenerationParams {
+export interface PasswordGenerationParams {
   length: number;
   passwordCharsSets: PasswordCharsSet[];
 }
@@ -53,15 +53,15 @@ export const generatePassword = ({ length, passwordCharsSets }: PasswordGenerati
     .join('');
 };
 
-export const testPasswordEntropy = ({ length, passwordCharsSets }: PasswordGenerationParams) => {
+export const getPasswordEntropy = ({ length, passwordCharsSets }: PasswordGenerationParams) => {
   const charsVariationsCount = getMergedCharsFromSets(passwordCharsSets).length;
 
   return Math.log2(charsVariationsCount) * length;
 };
 
-export const testPasswordStrengthFromEntropy = (entropy: number) => Object
+export const getPasswordStrengthFromEntropy = (entropy: number) => Object
   .entries(PASSWORD_ENTROPY_INTERVALS)
   .filter(([, [a, b]]) => isNumberInInterval(entropy, [a, b]))[0][0];
-export const testPasswordStrength = ({ length, passwordCharsSets }: PasswordGenerationParams) => {
-
-};
+export const getPasswordStrength = (params: PasswordGenerationParams) => getPasswordStrengthFromEntropy(
+  getPasswordEntropy(params),
+);

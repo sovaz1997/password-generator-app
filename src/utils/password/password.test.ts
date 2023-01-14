@@ -1,9 +1,8 @@
 import {
   generatePassword,
   getPossibleCharsInSet,
-  testPasswordEntropy,
-  testPasswordStrength,
-  testPasswordStrengthFromEntropy,
+  getPasswordEntropy,
+  getPasswordStrengthFromEntropy,
 } from './password';
 import { PasswordCharsSet, PasswordStrength } from '../../constants/password';
 
@@ -367,7 +366,7 @@ describe('Password tests', () => {
 
   describe('testPasswordEntropy', () => {
     it('Entropy for password that have 4 symbols and only digits', () => {
-      const entropy = testPasswordEntropy({
+      const entropy = getPasswordEntropy({
         length: 4,
         passwordCharsSets: [
           PasswordCharsSet.Digits,
@@ -380,7 +379,7 @@ describe('Password tests', () => {
 
   describe('testPasswordEntropy', () => {
     it('Entropy for all letter and 10 symbols', () => {
-      const entropy = testPasswordEntropy({
+      const entropy = getPasswordEntropy({
         length: 10,
         passwordCharsSets: [
           PasswordCharsSet.LowercaseLetters,
@@ -397,7 +396,7 @@ describe('Password tests', () => {
 
   describe('testPasswordEntropy', () => {
     it('Entropy for all letters and special symbols excluding digits and 16 symbols', () => {
-      const entropy = testPasswordEntropy({
+      const entropy = getPasswordEntropy({
         length: 16,
         passwordCharsSets: [
           PasswordCharsSet.LowercaseLetters,
@@ -417,7 +416,7 @@ describe('Password tests', () => {
 
   describe('testPasswordEntropy', () => {
     it('Entropy for password that have length = 30 and all symbols', () => {
-      const entropy = testPasswordEntropy({
+      const entropy = getPasswordEntropy({
         length: 30,
         passwordCharsSets: [
           PasswordCharsSet.Digits,
@@ -438,42 +437,42 @@ describe('Password tests', () => {
 
   describe('testPasswordStrengthFromEntropy', () => {
     it('test Very Weak password (medium)', () => {
-      const strength = testPasswordStrengthFromEntropy(3);
+      const strength = getPasswordStrengthFromEntropy(3);
       expect(strength).toBe(PasswordStrength.TooWeak);
     });
 
     it('test Very Weak password (lower bound)', () => {
-      const strength = testPasswordStrengthFromEntropy(0);
+      const strength = getPasswordStrengthFromEntropy(0);
       expect(strength).toBe(PasswordStrength.TooWeak);
     });
 
     it('test Weak password (medium)', () => {
-      const strength = testPasswordStrengthFromEntropy(25);
+      const strength = getPasswordStrengthFromEntropy(25);
       expect(strength).toBe(PasswordStrength.Weak);
     });
 
     it('test Weak password (lower bound)', () => {
-      const strength = testPasswordStrengthFromEntropy(20);
+      const strength = getPasswordStrengthFromEntropy(20);
       expect(strength).toBe(PasswordStrength.Weak);
     });
 
     it('test Medium password (lower bound)', () => {
-      const strength = testPasswordStrengthFromEntropy(45);
+      const strength = getPasswordStrengthFromEntropy(45);
       expect(strength).toBe(PasswordStrength.Medium);
     });
 
     it('test Medium password (lower bound)', () => {
-      const strength = testPasswordStrengthFromEntropy(35);
+      const strength = getPasswordStrengthFromEntropy(35);
       expect(strength).toBe(PasswordStrength.Medium);
     });
 
     it('test Strong password (lower bound)', () => {
-      const strength = testPasswordStrengthFromEntropy(100000000);
+      const strength = getPasswordStrengthFromEntropy(100000000);
       expect(strength).toBe(PasswordStrength.Strong);
     });
 
     it('test Strong password (lower bound)', () => {
-      const strength = testPasswordStrengthFromEntropy(55);
+      const strength = getPasswordStrengthFromEntropy(55);
       expect(strength).toBe(PasswordStrength.Strong);
     });
   });
