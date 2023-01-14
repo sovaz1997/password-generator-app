@@ -1,13 +1,13 @@
 export const enum PasswordCharsSet {
-  UppercaseLetters,
-  LowercaseLetters,
-  Digits,
-  SpecialSymbols,
+  UppercaseLetters = 'UppercaseLetters',
+  LowercaseLetters = 'LowercaseLetters',
+  Digits = 'Digits',
+  SpecialSymbols = 'SpecialSymbols',
 }
 
 export const enum PasswordStrength {
-  TooWeak,
-  Weak,
-  Medium,
-  Strong,
+  TooWeak = 'TooWeak',
+  Weak = 'Weak',
+  Medium = 'Medium',
+  Strong = 'Strong',
 }

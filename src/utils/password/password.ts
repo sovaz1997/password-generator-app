@@ -1,4 +1,4 @@
-import { PasswordCharsSet } from '../../constants/password';
+import { PasswordCharsSet, PasswordStrength } from '../../constants/password';
 
 interface PasswordGenerationParams {
   length: number;
@@ -16,6 +16,15 @@ const PASSWORD_CHARS: Record<PasswordCharsSet, string> = {
   [PasswordCharsSet.UppercaseLetters]: UPPERCASE_LETTERS,
   [PasswordCharsSet.SpecialSymbols]: SPECIAL_SYMBOLS,
 };
+
+const PASSWORD_ENTROPY_INTERVALS: Record<PasswordStrength, [number, number]> = {
+  [PasswordStrength.TooWeak]: [0, 20],
+  [PasswordStrength.Weak]: [20, 35],
+  [PasswordStrength.Medium]: [35, 55],
+  [PasswordStrength.Strong]: [55, Infinity],
+};
+
+const isNumberInInterval = (n: number, [a, b]: [number, number]) => n >= a && n < b;
 
 const getMergedCharsFromSets = (sets: PasswordCharsSet[]) => sets
   .map((charSet) => PASSWORD_CHARS[charSet])
@@ -50,6 +59,9 @@ export const testPasswordEntropy = ({ length, passwordCharsSets }: PasswordGener
   return Math.log2(charsVariationsCount) * length;
 };
 
+export const testPasswordStrengthFromEntropy = (entropy: number) => Object
+  .entries(PASSWORD_ENTROPY_INTERVALS)
+  .filter(([, [a, b]]) => isNumberInInterval(entropy, [a, b]))[0][0];
 export const testPasswordStrength = ({ length, passwordCharsSets }: PasswordGenerationParams) => {
-  // TODO: Implement
+
 };
