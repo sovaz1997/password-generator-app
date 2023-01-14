@@ -9,12 +9,16 @@ import {
 import JetBrainsMonoBoldWoff from '../assets/fonts/JetBrainsMono-Bold.woff';
 import JetBrainsMonoBoldWoff2 from '../assets/fonts/JetBrainsMono-Bold.woff2';
 
-const fontFamily = [
+const FONT_FAMILY = [
   '"JetBrains Mono"',
   'Roboto',
   '"Helvetica Neue"',
   'sans-serif',
 ].join(',');
+
+const COLORS = {
+  WHITE: '#E6E5EA',
+};
 
 const theme = createTheme({
   palette: {
@@ -22,12 +26,15 @@ const theme = createTheme({
     orange: '#FB7C58',
     yellow: '#F8CD65',
     greenNeon: '#A4FFAF',
-    white: '#E6E5EA',
+    white: COLORS.WHITE,
     greyDark: '#24232C',
     greyVeryDark: '#18171F',
   },
   typography: {
-    fontFamily,
+    fontFamily: FONT_FAMILY,
+    body1: {
+      color: COLORS.WHITE,
+    },
   },
   components: {
     MuiCssBaseline: {
@@ -45,11 +52,11 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          fontFamily,
+          fontFamily: FONT_FAMILY,
           fontWeight: 'bold',
         },
         textInfo: {
-          fontFamily,
+          fontFamily: FONT_FAMILY,
           fontWeight: 'bold',
         },
       },
