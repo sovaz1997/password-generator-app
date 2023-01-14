@@ -351,7 +351,7 @@ describe('Password tests', () => {
     });
 
     it('Trying to generate password without any PasswordCharsSet should be impossible', () => {
-      expect(generatePassword(
+      expect(() => generatePassword(
         { length: 10, passwordCharsSet: [] },
       )).toThrowError('passwordCharsSet couldn\'t be empty');
     });
