@@ -6,14 +6,14 @@ interface PasswordGenerationParams {
 }
 
 export const getPossibleCharsInSet = (set: PasswordCharsSet): string[] => {
-  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  const letters = 'abcdefghijklmnopqrstuvwxyz';
   const digits = '0123456789';
   const specialSymbols = '~`! @#$%^&*()_-+={[}]|\\:;"\'<,>.?/';
 
   const possibleCharsSplitBySet: Record<PasswordCharsSet, string> = {
     [PasswordCharsSet.Digits]: digits,
-    [PasswordCharsSet.LowercaseAlphabet]: alphabet,
-    [PasswordCharsSet.UppercaseAlphabet]: alphabet.toUpperCase(),
+    [PasswordCharsSet.LowercaseLetters]: letters,
+    [PasswordCharsSet.UppercaseLetters]: letters.toUpperCase(),
     [PasswordCharsSet.SpecialSymbols]: specialSymbols,
   };
 

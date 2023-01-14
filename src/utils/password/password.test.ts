@@ -2,9 +2,9 @@ import { generatePassword, getPossibleCharsInSet } from './password';
 import { PasswordCharsSet } from '../../constants/password';
 
 const specialSymbols = '~`! @#$%^&*()_-+={[}]|\\:;"\'<,>.?/';
-const lowercasedAlphabet = 'abcdefghijklmnopqrstuvwxyz';
+const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
 const digits = '0123456789';
-const uppercasedAlphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 describe('Password tests', () => {
   describe('getPossibleSymbolsInSet', () => {
@@ -23,13 +23,13 @@ describe('Password tests', () => {
     });
 
     it('lowercase', () => {
-      const possibleSymbols = getPossibleCharsInSet(PasswordCharsSet.LowercaseAlphabet);
-      expect(hasThisSymbols(lowercasedAlphabet, possibleSymbols)).toBeTruthy();
+      const possibleSymbols = getPossibleCharsInSet(PasswordCharsSet.LowercaseLetters);
+      expect(hasThisSymbols(lowercaseLetters, possibleSymbols)).toBeTruthy();
     });
 
     it('Uppercase', () => {
-      const possibleSymbols = getPossibleCharsInSet(PasswordCharsSet.UppercaseAlphabet);
-      expect(hasThisSymbols(uppercasedAlphabet.toUpperCase(), possibleSymbols)).toBeTruthy();
+      const possibleSymbols = getPossibleCharsInSet(PasswordCharsSet.UppercaseLetters);
+      expect(hasThisSymbols(uppercaseLetters.toUpperCase(), possibleSymbols)).toBeTruthy();
     });
 
     it('Special symbols', () => {
@@ -72,41 +72,41 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          lowercasedAlphabet,
-          uppercasedAlphabet,
+          lowercaseLetters,
+          uppercaseLetters,
           specialSymbols,
         ])).toBeTruthy();
       }
     });
 
-    it('Simple password that have only lower-cased alphabet chars', () => {
+    it('Simple password that have only lower-case letters', () => {
       for (let i = 0; i < ITERATIONS; i += 1) {
         const password = generatePassword({
           length: randomStandardPasswordLength(),
           passwordCharsSet: [
-            PasswordCharsSet.LowercaseAlphabet,
+            PasswordCharsSet.LowercaseLetters,
           ],
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          uppercasedAlphabet,
+          uppercaseLetters,
           digits,
           specialSymbols,
         ])).toBeTruthy();
       }
     });
 
-    it('Simple password that have only upper-cased alphabet chars', () => {
+    it('Simple password that have only upper-case letters', () => {
       for (let i = 0; i < ITERATIONS; i += 1) {
         const password = generatePassword({
           length: randomStandardPasswordLength(),
           passwordCharsSet: [
-            PasswordCharsSet.UppercaseAlphabet,
+            PasswordCharsSet.UppercaseLetters,
           ],
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          lowercasedAlphabet,
+          lowercaseLetters,
           digits,
           specialSymbols,
         ])).toBeTruthy();
@@ -123,11 +123,170 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          lowercasedAlphabet,
+          lowercaseLetters,
           digits,
-          uppercasedAlphabet,
+          uppercaseLetters,
         ])).toBeTruthy();
       }
+    });
+
+    it('Password that have digits and lower-case letters', () => {
+      for (let i = 0; i < ITERATIONS; i += 1) {
+        const password = generatePassword({
+          length: randomStandardPasswordLength(),
+          passwordCharsSet: [
+            PasswordCharsSet.Digits,
+            PasswordCharsSet.LowercaseLetters,
+          ],
+        });
+
+        expect(passwordDontHaveCharsFromSets(password, [
+          specialSymbols,
+          uppercaseLetters,
+        ])).toBeTruthy();
+      }
+    });
+
+    it('Password that have digits and upper-case letters', () => {
+      for (let i = 0; i < ITERATIONS; i += 1) {
+        const password = generatePassword({
+          length: randomStandardPasswordLength(),
+          passwordCharsSet: [
+            PasswordCharsSet.Digits,
+            PasswordCharsSet.UppercaseLetters,
+          ],
+        });
+
+        expect(passwordDontHaveCharsFromSets(password, [
+          specialSymbols,
+          lowercaseLetters,
+        ])).toBeTruthy();
+      }
+    });
+
+    it('Password that have digits and special symbols', () => {
+      for (let i = 0; i < ITERATIONS; i += 1) {
+        const password = generatePassword({
+          length: randomStandardPasswordLength(),
+          passwordCharsSet: [
+            PasswordCharsSet.Digits,
+            PasswordCharsSet.SpecialSymbols,
+          ],
+        });
+
+        expect(passwordDontHaveCharsFromSets(password, [
+          uppercaseLetters,
+          lowercaseLetters,
+        ])).toBeTruthy();
+      }
+    });
+
+    it('Password that have lower-case and upper-case letters', () => {
+      for (let i = 0; i < ITERATIONS; i += 1) {
+        const password = generatePassword({
+          length: randomStandardPasswordLength(),
+          passwordCharsSet: [
+            PasswordCharsSet.LowercaseLetters,
+            PasswordCharsSet.UppercaseLetters,
+          ],
+        });
+
+        expect(passwordDontHaveCharsFromSets(password, [
+          digits,
+          specialSymbols,
+        ])).toBeTruthy();
+      }
+    });
+
+    it('Password that have lower-case letters and special symbols', () => {
+      for (let i = 0; i < ITERATIONS; i += 1) {
+        const password = generatePassword({
+          length: randomStandardPasswordLength(),
+          passwordCharsSet: [
+            PasswordCharsSet.LowercaseLetters,
+            PasswordCharsSet.SpecialSymbols,
+          ],
+        });
+
+        expect(passwordDontHaveCharsFromSets(password, [
+          digits,
+          uppercaseLetters,
+        ])).toBeTruthy();
+      }
+    });
+
+    it('Difficult password that have everything except digits', () => {
+      for (let i = 0; i < ITERATIONS; i += 1) {
+        const password = generatePassword({
+          length: randomStandardPasswordLength(),
+          passwordCharsSet: [
+            PasswordCharsSet.LowercaseLetters,
+            PasswordCharsSet.UppercaseLetters,
+            PasswordCharsSet.SpecialSymbols,
+          ],
+        });
+
+        expect(passwordDontHaveCharsFromSets(password, [
+          digits,
+        ])).toBeTruthy();
+      }
+    });
+
+    it('Difficult password that have everything except lower-case letters', () => {
+      for (let i = 0; i < ITERATIONS; i += 1) {
+        const password = generatePassword({
+          length: randomStandardPasswordLength(),
+          passwordCharsSet: [
+            PasswordCharsSet.Digits,
+            PasswordCharsSet.UppercaseLetters,
+            PasswordCharsSet.SpecialSymbols,
+          ],
+        });
+
+        expect(passwordDontHaveCharsFromSets(password, [
+          lowercaseLetters,
+        ])).toBeTruthy();
+      }
+    });
+
+    it('Difficult password that have everything except upper-case letters', () => {
+      for (let i = 0; i < ITERATIONS; i += 1) {
+        const password = generatePassword({
+          length: randomStandardPasswordLength(),
+          passwordCharsSet: [
+            PasswordCharsSet.Digits,
+            PasswordCharsSet.LowercaseLetters,
+            PasswordCharsSet.SpecialSymbols,
+          ],
+        });
+
+        expect(passwordDontHaveCharsFromSets(password, [
+          uppercaseLetters,
+        ])).toBeTruthy();
+      }
+    });
+
+    it('Difficult password that have everything except special symbols', () => {
+      for (let i = 0; i < ITERATIONS; i += 1) {
+        const password = generatePassword({
+          length: randomStandardPasswordLength(),
+          passwordCharsSet: [
+            PasswordCharsSet.Digits,
+            PasswordCharsSet.LowercaseLetters,
+            PasswordCharsSet.UppercaseLetters,
+          ],
+        });
+
+        expect(passwordDontHaveCharsFromSets(password, [
+          specialSymbols,
+        ])).toBeTruthy();
+      }
+    });
+
+    it('Trying to generate password without any PasswordCharsSet should be impossible', () => {
+      expect(generatePassword(
+        { length: 10, passwordCharsSet: [] },
+      )).toThrowError('passwordCharsSet couldn\'t be empty');
     });
   });
 });

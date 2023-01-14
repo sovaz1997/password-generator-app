@@ -1,6 +1,6 @@
 export const enum PasswordCharsSet {
-  UppercaseAlphabet,
-  LowercaseAlphabet,
+  UppercaseLetters,
+  LowercaseLetters,
   Digits,
   SpecialSymbols,
 }
