@@ -1,8 +1,8 @@
-export const enum PasswordSymbolsSet {
-  Uppercase,
-  Lowercase,
-  Numbers,
-  Symbols,
+export const enum PasswordCharsSet {
+  UppercaseAlphabet,
+  LowercaseAlphabet,
+  Digits,
+  SpecialSymbols,
 }
 
 export const enum PasswordStrength {

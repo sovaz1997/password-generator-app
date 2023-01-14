@@ -1,26 +1,26 @@
-import { PasswordStrength, PasswordSymbolsSet } from '../../constants/password';
+import { PasswordCharsSet } from '../../constants/password';
 
 interface PasswordGenerationParams {
-  count: number;
-  passwordSymbolsSet: PasswordSymbolsSet[];
+  length: number;
+  passwordCharsSet: PasswordCharsSet[];
 }
 
-export const getPossibleSymbolsInSet = (set: PasswordSymbolsSet): string[] => {
+export const getPossibleCharsInSet = (set: PasswordCharsSet): string[] => {
   const alphabet = 'abcdefghijklmnopqrstuvwxyz';
   const digits = '0123456789';
-  const symbols = '~`! @#$%^&*()_-+={[}]|\\:;"\'<,>.?/';
+  const specialSymbols = '~`! @#$%^&*()_-+={[}]|\\:;"\'<,>.?/';
 
-  const possibleSymbolsSplittedBySet: Record<PasswordSymbolsSet, string> = {
-    [PasswordSymbolsSet.Numbers]: digits,
-    [PasswordSymbolsSet.Lowercase]: alphabet,
-    [PasswordSymbolsSet.Uppercase]: alphabet.toUpperCase(),
-    [PasswordSymbolsSet.Symbols]: symbols,
+  const possibleCharsSplitBySet: Record<PasswordCharsSet, string> = {
+    [PasswordCharsSet.Digits]: digits,
+    [PasswordCharsSet.LowercaseAlphabet]: alphabet,
+    [PasswordCharsSet.UppercaseAlphabet]: alphabet.toUpperCase(),
+    [PasswordCharsSet.SpecialSymbols]: specialSymbols,
   };
 
-  return possibleSymbolsSplittedBySet[set].split('');
+  return possibleCharsSplitBySet[set].split('');
 };
 
-export const generatePassword = ({ count, passwordSymbolsSet }: PasswordGenerationParams) => {
+export const generatePassword = ({ length, passwordCharsSet }: PasswordGenerationParams): string => {
   // TODO: Implement
 };
 
