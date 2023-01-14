@@ -373,6 +373,42 @@ describe('Password tests', () => {
   });
 
   describe('testPasswordEntropy', () => {
+    it('Entropy for all letter and 10 symbols', () => {
+      const entropy = testPasswordEntropy({
+        length: 10,
+        passwordCharsSets: [
+          PasswordCharsSet.LowercaseLetters,
+          PasswordCharsSet.UppercaseLetters,
+        ],
+      });
+
+      expect(entropy)
+        .toBeCloseTo(10 * Math.log2(
+          CHAR_SETS.LOWERCASE_LETTERS.length + CHAR_SETS.UPPERCASE_LETTERS.length,
+        ), 4);
+    });
+  });
+
+  describe('testPasswordEntropy', () => {
+    it('Entropy for all letters and special symbols excluding digits and 16 symbols', () => {
+      const entropy = testPasswordEntropy({
+        length: 16,
+        passwordCharsSets: [
+          PasswordCharsSet.LowercaseLetters,
+          PasswordCharsSet.UppercaseLetters,
+        ],
+      });
+
+      expect(entropy)
+        .toBeCloseTo(16 * Math.log2(
+          CHAR_SETS.LOWERCASE_LETTERS.length
+      + CHAR_SETS.UPPERCASE_LETTERS.length
+          + CHAR_SETS.SPECIAL_SYMBOLS.length,
+        ), 4);
+    });
+  });
+
+  describe('testPasswordEntropy', () => {
     it('Entropy for password that have length = 30 and all symbols', () => {
       const entropy = testPasswordEntropy({
         length: 30,
