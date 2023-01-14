@@ -5,23 +5,26 @@ interface PasswordGenerationParams {
   passwordCharsSet: PasswordCharsSet[];
 }
 
-export const getPossibleCharsInSet = (set: PasswordCharsSet): string[] => {
-  const letters = 'abcdefghijklmnopqrstuvwxyz';
-  const digits = '0123456789';
-  const specialSymbols = '~`! @#$%^&*()_-+={[}]|\\:;"\'<,>.?/';
+const SPECIAL_SYMBOLS = '~`! @#$%^&*()_-+={[}]|\\:;"\'<,>.?/';
+const LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz';
+const DIGITS = '0123456789';
+const UPPERCASE_LETTERS = LOWERCASE_LETTERS.toUpperCase();
 
+export const getPossibleCharsInSet = (set: PasswordCharsSet): string[] => {
   const possibleCharsSplitBySet: Record<PasswordCharsSet, string> = {
-    [PasswordCharsSet.Digits]: digits,
-    [PasswordCharsSet.LowercaseLetters]: letters,
-    [PasswordCharsSet.UppercaseLetters]: letters.toUpperCase(),
-    [PasswordCharsSet.SpecialSymbols]: specialSymbols,
+    [PasswordCharsSet.Digits]: DIGITS,
+    [PasswordCharsSet.LowercaseLetters]: LOWERCASE_LETTERS,
+    [PasswordCharsSet.UppercaseLetters]: UPPERCASE_LETTERS,
+    [PasswordCharsSet.SpecialSymbols]: SPECIAL_SYMBOLS,
   };
 
   return possibleCharsSplitBySet[set].split('');
 };
 
 export const generatePassword = ({ length, passwordCharsSet }: PasswordGenerationParams): string => {
-  // TODO: Implement
+  // const generatePasswordChar = () => {
+  //   const possibleSymbols
+  // }
 };
 
 export const testPasswordEntropy = () => {

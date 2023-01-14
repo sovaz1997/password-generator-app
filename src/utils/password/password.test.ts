@@ -1,10 +1,10 @@
 import { generatePassword, getPossibleCharsInSet } from './password';
 import { PasswordCharsSet } from '../../constants/password';
 
-const specialSymbols = '~`! @#$%^&*()_-+={[}]|\\:;"\'<,>.?/';
-const lowercaseLetters = 'abcdefghijklmnopqrstuvwxyz';
-const digits = '0123456789';
-const uppercaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const SPECIAL_SYMBOLS = '~`! @#$%^&*()_-+={[}]|\\:;"\'<,>.?/';
+const LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz';
+const DIGITS = '0123456789';
+const UPPERCASE_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 describe('Password tests', () => {
   describe('getPossibleSymbolsInSet', () => {
@@ -19,22 +19,22 @@ describe('Password tests', () => {
 
     it('numbers', () => {
       const possibleSymbols = getPossibleCharsInSet(PasswordCharsSet.Digits);
-      expect(hasThisSymbols(digits, possibleSymbols)).toBeTruthy();
+      expect(hasThisSymbols(DIGITS, possibleSymbols)).toBeTruthy();
     });
 
     it('lowercase', () => {
       const possibleSymbols = getPossibleCharsInSet(PasswordCharsSet.LowercaseLetters);
-      expect(hasThisSymbols(lowercaseLetters, possibleSymbols)).toBeTruthy();
+      expect(hasThisSymbols(LOWERCASE_LETTERS, possibleSymbols)).toBeTruthy();
     });
 
     it('Uppercase', () => {
       const possibleSymbols = getPossibleCharsInSet(PasswordCharsSet.UppercaseLetters);
-      expect(hasThisSymbols(uppercaseLetters.toUpperCase(), possibleSymbols)).toBeTruthy();
+      expect(hasThisSymbols(UPPERCASE_LETTERS.toUpperCase(), possibleSymbols)).toBeTruthy();
     });
 
     it('Special symbols', () => {
       const possibleSpecialSymbols = getPossibleCharsInSet(PasswordCharsSet.SpecialSymbols);
-      expect(hasThisSymbols(specialSymbols, possibleSpecialSymbols)).toBeTruthy();
+      expect(hasThisSymbols(SPECIAL_SYMBOLS, possibleSpecialSymbols)).toBeTruthy();
     });
   });
 
@@ -47,6 +47,13 @@ describe('Password tests', () => {
       return password
         .split('')
         .every((passwordChar) => !chars.includes(passwordChar));
+    };
+
+    const passwordHaveCharsFromSets = (password: string, sets: string[]): boolean => {
+      const chars = sets.join('');
+      return password
+        .split('')
+        .every((passwordChar) => chars.includes(passwordChar));
     };
 
     it('Password length', () => {
@@ -72,9 +79,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          lowercaseLetters,
-          uppercaseLetters,
-          specialSymbols,
+          LOWERCASE_LETTERS,
+          UPPERCASE_LETTERS,
+          SPECIAL_SYMBOLS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          DIGITS,
         ])).toBeTruthy();
       }
     });
@@ -89,9 +100,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          uppercaseLetters,
-          digits,
-          specialSymbols,
+          UPPERCASE_LETTERS,
+          DIGITS,
+          SPECIAL_SYMBOLS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          LOWERCASE_LETTERS,
         ])).toBeTruthy();
       }
     });
@@ -106,9 +121,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          lowercaseLetters,
-          digits,
-          specialSymbols,
+          LOWERCASE_LETTERS,
+          DIGITS,
+          SPECIAL_SYMBOLS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          UPPERCASE_LETTERS,
         ])).toBeTruthy();
       }
     });
@@ -123,9 +142,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          lowercaseLetters,
-          digits,
-          uppercaseLetters,
+          LOWERCASE_LETTERS,
+          DIGITS,
+          UPPERCASE_LETTERS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          SPECIAL_SYMBOLS,
         ])).toBeTruthy();
       }
     });
@@ -141,8 +164,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          specialSymbols,
-          uppercaseLetters,
+          SPECIAL_SYMBOLS,
+          UPPERCASE_LETTERS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          DIGITS,
+          LOWERCASE_LETTERS,
         ])).toBeTruthy();
       }
     });
@@ -158,8 +186,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          specialSymbols,
-          lowercaseLetters,
+          SPECIAL_SYMBOLS,
+          LOWERCASE_LETTERS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          DIGITS,
+          UPPERCASE_LETTERS,
         ])).toBeTruthy();
       }
     });
@@ -175,8 +208,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          uppercaseLetters,
-          lowercaseLetters,
+          UPPERCASE_LETTERS,
+          LOWERCASE_LETTERS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          DIGITS,
+          SPECIAL_SYMBOLS,
         ])).toBeTruthy();
       }
     });
@@ -192,8 +230,8 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          digits,
-          specialSymbols,
+          DIGITS,
+          SPECIAL_SYMBOLS,
         ])).toBeTruthy();
       }
     });
@@ -209,8 +247,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          digits,
-          uppercaseLetters,
+          DIGITS,
+          UPPERCASE_LETTERS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          LOWERCASE_LETTERS,
+          SPECIAL_SYMBOLS,
         ])).toBeTruthy();
       }
     });
@@ -227,7 +270,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          digits,
+          DIGITS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          LOWERCASE_LETTERS,
+          UPPERCASE_LETTERS,
+          SPECIAL_SYMBOLS,
         ])).toBeTruthy();
       }
     });
@@ -244,7 +293,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          lowercaseLetters,
+          LOWERCASE_LETTERS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          DIGITS,
+          UPPERCASE_LETTERS,
+          SPECIAL_SYMBOLS,
         ])).toBeTruthy();
       }
     });
@@ -261,7 +316,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          uppercaseLetters,
+          UPPERCASE_LETTERS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          DIGITS,
+          LOWERCASE_LETTERS,
+          SPECIAL_SYMBOLS,
         ])).toBeTruthy();
       }
     });
@@ -278,7 +339,13 @@ describe('Password tests', () => {
         });
 
         expect(passwordDontHaveCharsFromSets(password, [
-          specialSymbols,
+          SPECIAL_SYMBOLS,
+        ])).toBeTruthy();
+
+        expect(passwordHaveCharsFromSets(password, [
+          DIGITS,
+          LOWERCASE_LETTERS,
+          UPPERCASE_LETTERS,
         ])).toBeTruthy();
       }
     });
