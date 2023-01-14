@@ -1,5 +1,6 @@
-import { defineConfig, InlineConfig, UserConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig, InlineConfig, UserConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import eslintPlugin from "@nabla/vite-plugin-eslint";
 
 interface VitestConfigExport extends UserConfig {
   test: InlineConfig;
@@ -7,7 +8,7 @@ interface VitestConfigExport extends UserConfig {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), eslintPlugin()],
   test: {
     globals: true,
     environment: 'jsdom',
