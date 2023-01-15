@@ -1,7 +1,9 @@
-import IconArrowRight from './icon-arrow-right';
+import ArrowRight from './arrow-right';
+import Copy from './copy';
 
 const Icons = {
-  IconArrowRight,
+  ArrowRight,
+  Copy,
 };
 
 export default Icons;

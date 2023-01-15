@@ -66,7 +66,7 @@ const theme = createTheme({
 
 const globalStyles = createStyles(() => ({
   body: {
-    backgroundColor: theme.palette.greyDark,
+    backgroundColor: theme.palette.greyVeryDark,
   },
 }));
 

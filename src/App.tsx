@@ -5,6 +5,7 @@ import {
 import GeneratePasswordButton from './components/generate-password-button';
 import { generatePassword, getPasswordStrength, PasswordGenerationParams } from './utils/password';
 import { PasswordCharsSet } from './constants/password';
+import PasswordField from './components/password-field';
 
 const CHAR_SETS_LABEL_MAP: Record<PasswordCharsSet, string> = {
   [PasswordCharsSet.LowercaseLetters]: 'Include Lowercase Letters',
@@ -80,7 +81,7 @@ const App = () => {
   return (
     <div>
       <h1>Password generator</h1>
-      {password}
+      <PasswordField value={password} />
       <Slider
         value={generationParams.length}
         onChange={handleChangePasswordLength}

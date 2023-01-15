@@ -1,4 +1,4 @@
-import { styled, SvgIcon } from '@mui/material';
+import { styled } from '@mui/material';
 import { FC } from 'react';
 import Button from '../button/button';
 import Icons from '../icons';
@@ -17,7 +17,7 @@ const GeneratePasswordButton: FC<GeneratePasswordButtonProps> = ({ onClick }) =>
   <Button fullWidth onClick={onClick}>
     <ButtonContent>
       Generate
-      <SvgIcon sx={{ transition: 'inherit' }} component={Icons.IconArrowRight} />
+      <Icons.ArrowRight />
     </ButtonContent>
   </Button>
 );
