@@ -96,8 +96,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           paddingLeft: 0,
-          paddingTop: 10,
-          paddingBottom: 10,
+          paddingTop: 0,
+          paddingBottom: 0,
           '&.Mui-disabled': {
             opacity: DISABLED_OPACITY,
           },
@@ -111,6 +111,7 @@ const theme = createTheme({
         },
         label: {
           fontSize: 18,
+          lineHeight: '18px',
           '&.Mui-disabled': {
             color: COLORS.WHITE,
             opacity: DISABLED_OPACITY,

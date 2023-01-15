@@ -22,6 +22,12 @@ const PageWrapper = styled(Box)`
   width: 540px;
 `;
 
+const CharsetToggleFormGroup = styled(FormGroup)`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
 const CHAR_SETS_LABEL_MAP: Record<PasswordCharsSet, string> = {
   [PasswordCharsSet.LowercaseLetters]: 'Include Lowercase Letters',
   [PasswordCharsSet.UppercaseLetters]: 'Include Uppercase Letters',
@@ -104,12 +110,12 @@ const App = () => {
           min={PASSWORD_LENGTH_RANGE.from}
           max={PASSWORD_LENGTH_RANGE.to}
         />
-        <FormGroup>
+        <CharsetToggleFormGroup>
           { renderCharSetToggle(PasswordCharsSet.Digits) }
           { renderCharSetToggle(PasswordCharsSet.LowercaseLetters) }
           { renderCharSetToggle(PasswordCharsSet.UppercaseLetters) }
           { renderCharSetToggle(PasswordCharsSet.SpecialSymbols) }
-        </FormGroup>
+        </CharsetToggleFormGroup>
         {getPasswordStrength(generationParams)}
         <GeneratePasswordButton onClick={handleGeneratePassword} />
       </PageWrapper>
