@@ -18,6 +18,8 @@ const FONT_FAMILY = [
 
 const COLORS = {
   WHITE: '#E6E5EA',
+  GREEN_NEON: '#A4FFAF',
+  GREY_VERY_DARK: '#18171F',
 };
 
 const theme = createTheme({
@@ -25,10 +27,10 @@ const theme = createTheme({
     red: '#F64A4A',
     orange: '#FB7C58',
     yellow: '#F8CD65',
-    greenNeon: '#A4FFAF',
+    greenNeon: COLORS.GREEN_NEON,
     white: COLORS.WHITE,
     greyDark: '#24232C',
-    greyVeryDark: '#18171F',
+    greyVeryDark: COLORS.GREY_VERY_DARK,
   },
   typography: {
     fontFamily: FONT_FAMILY,
@@ -58,6 +60,28 @@ const theme = createTheme({
         textInfo: {
           fontFamily: FONT_FAMILY,
           fontWeight: 'bold',
+        },
+      },
+    },
+    MuiSlider: {
+      styleOverrides: {
+        root: {
+          color: COLORS.GREEN_NEON,
+          borderRadius: 0,
+          height: '8px',
+          '.MuiSlider-thumb.Mui-focusVisible, .MuiSlider-thumb:hover': {
+            boxShadow: 'none',
+          },
+        },
+        thumbColorPrimary: '#000000',
+        thumbColorSecondary: '#000000',
+        thumb: {
+          color: COLORS.WHITE,
+          width: '28px',
+          height: '28px',
+        },
+        rail: {
+          color: COLORS.GREY_VERY_DARK,
         },
       },
     },
