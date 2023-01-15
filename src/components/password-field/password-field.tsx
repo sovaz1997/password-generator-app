@@ -2,7 +2,7 @@ import {
   Box, styled, Typography, useTheme, css,
 } from '@mui/material';
 import { FC, useRef } from 'react';
-import { useHover } from 'usehooks-ts';
+import { useCopyToClipboard, useHover } from 'usehooks-ts';
 import Icons from '../icons';
 
 const PLACEHOLDER_TEXT = 'P4$5W0rD!';
@@ -27,10 +27,17 @@ const PasswordContent = styled(Box)<PasswordContentProps>`
 
 const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
   const theme = useTheme();
+  const [, copy] = useCopyToClipboard();
   const { palette: { white, greenNeon, greyDark } } = theme;
 
   const hoverRef = useRef(null);
   const isHover = useHover(hoverRef);
+
+  const handleClick = () => {
+    if (value) {
+      copy(value);
+    }
+  };
 
   const renderPassword = () => (
     <Typography fontSize={PASSWORD_FONT_SIZE}>{ value || PLACEHOLDER_TEXT }</Typography>
@@ -48,9 +55,9 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
     return <Icons.Copy fill={getFill()} />;
   };
 
-  // TODO: Move paddingX to style constants
   return (
     <Box
+      onClick={handleClick}
       ref={hoverRef}
       bgcolor={greyDark}
       alignItems="center"
