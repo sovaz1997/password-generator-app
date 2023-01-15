@@ -4,7 +4,7 @@ import {
   createTheme,
   CssBaseline,
   GlobalStyles,
-  createStyles,
+  createStyles, css,
 } from '@mui/material';
 import JetBrainsMonoBoldWoff from '../assets/fonts/JetBrainsMono-Bold.woff';
 import JetBrainsMonoBoldWoff2 from '../assets/fonts/JetBrainsMono-Bold.woff2';
@@ -73,12 +73,14 @@ const theme = createTheme({
   },
 });
 
-const globalStyles = createStyles(() => ({
-  body: {
-    backgroundColor: theme.palette.greyVeryDark,
-    userSelect: 'none',
-  },
-}));
+const style = css`
+  body {
+    background-Color: ${theme.palette.greyVeryDark};
+    user-select: none;
+  }
+`;
+
+const globalStyles = createStyles(() => style);
 
 const ThemeProvider: FC<PropsWithChildren> = ({ children }) => (
   <MThemeProvider theme={theme}>
