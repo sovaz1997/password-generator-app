@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import JetBrainsMonoBoldWoff from '../assets/fonts/JetBrainsMono-Bold.woff';
 import JetBrainsMonoBoldWoff2 from '../assets/fonts/JetBrainsMono-Bold.woff2';
+import Icons from '../components/icons';
 
 const FONT_FAMILY = [
   '"JetBrains Mono"',
@@ -21,6 +22,8 @@ const COLORS = {
   GREEN_NEON: '#A4FFAF',
   GREY_VERY_DARK: '#18171F',
 };
+
+const DISABLED_OPACITY = 0.5;
 
 const theme = createTheme({
   palette: {
@@ -69,7 +72,7 @@ const theme = createTheme({
           color: COLORS.GREEN_NEON,
           borderRadius: 0,
           height: '8px',
-          '.MuiSlider-thumb.Mui-focusVisible, .MuiSlider-thumb:hover': {
+          '.MuiSlider-thumb.Mui-focusVisible, .MuiSlider-thumb:hover, .MuiSlider-thumb:active': {
             boxShadow: 'none',
           },
         },
@@ -82,6 +85,36 @@ const theme = createTheme({
         },
         rail: {
           color: COLORS.GREY_VERY_DARK,
+        },
+      },
+    },
+    MuiCheckbox: {
+      defaultProps: {
+        icon: <Icons.Check checked={false} />,
+        checkedIcon: <Icons.Check checked />,
+      },
+      styleOverrides: {
+        root: {
+          paddingLeft: 0,
+          paddingTop: 10,
+          paddingBottom: 10,
+          '&.Mui-disabled': {
+            opacity: DISABLED_OPACITY,
+          },
+        },
+      },
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+        },
+        label: {
+          fontSize: 18,
+          '&.Mui-disabled': {
+            color: COLORS.WHITE,
+            opacity: DISABLED_OPACITY,
+          },
         },
       },
     },
