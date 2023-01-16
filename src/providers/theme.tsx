@@ -110,6 +110,7 @@ const theme = createTheme({
           paddingBottom: 0,
           paddingRight: 0,
           marginRight: 24,
+          color: 'transparent !important',
 
           '&.Mui-disabled': {
             opacity: DISABLED_OPACITY,
@@ -118,7 +119,7 @@ const theme = createTheme({
           '&.Mui-focusVisible': {
             backgroundColor: 'transparent',
             // eslint-disable-next-line max-len
-            transition: 'box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+            transition: 'box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
             boxShadow: `0 0 0 8px ${alpha(COLORS.GREEN_NEON, 0.16)} !important`,
             outline: 'none',
           },
