@@ -104,7 +104,7 @@ const App = () => {
   return (
     <Wrapper>
       <PageWrapper>
-        <Typography variant="h1" fontSize={16} paddingTop={4} marginBottom={4}>
+        <Typography variant="h1" paddingTop={4} marginBottom={4}>
           Password generator
         </Typography>
         <Box marginBottom={3}>

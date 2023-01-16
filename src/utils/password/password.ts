@@ -65,6 +65,7 @@ export const getPasswordEntropy = ({ length, passwordCharsSets }: PasswordGenera
 export const getPasswordStrengthFromEntropy = (entropy: number) => (Object
   .entries(PASSWORD_ENTROPY_INTERVALS) as Entries<PasswordEntropyIntervals>)
   .filter(([, [a, b]]) => isNumberInInterval(entropy, [a, b]))[0][0];
+
 export const getPasswordStrength = (params: PasswordGenerationParams) => getPasswordStrengthFromEntropy(
   getPasswordEntropy(params),
 );

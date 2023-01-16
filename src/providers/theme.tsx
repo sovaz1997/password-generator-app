@@ -4,7 +4,7 @@ import {
   createTheme,
   CssBaseline,
   GlobalStyles,
-  createStyles, css,
+  createStyles, css, alpha,
 } from '@mui/material';
 import JetBrainsMonoBoldWoff from '../assets/fonts/JetBrainsMono-Bold.woff';
 import JetBrainsMonoBoldWoff2 from '../assets/fonts/JetBrainsMono-Bold.woff2';
@@ -21,6 +21,8 @@ const COLORS = {
   WHITE: '#E6E5EA',
   GREEN_NEON: '#A4FFAF',
   GREY_VERY_DARK: '#18171F',
+  GREY_DARK: '#24232C',
+  GREY_DEFAULT: '#817D92',
 };
 
 const DISABLED_OPACITY = 0.5;
@@ -32,14 +34,20 @@ const theme = createTheme({
     yellow: '#F8CD65',
     greenNeon: COLORS.GREEN_NEON,
     white: COLORS.WHITE,
-    greyDark: '#24232C',
+    greyDark: COLORS.GREY_DARK,
     greyVeryDark: COLORS.GREY_VERY_DARK,
-    greyDefault: '#817D92',
+    greyDefault: COLORS.GREY_DEFAULT,
   },
   typography: {
     fontFamily: FONT_FAMILY,
     body1: {
       color: COLORS.WHITE,
+    },
+    h1: {
+      fontSize: '32px',
+      lineHeight: '43px',
+      textAlign: 'center',
+      color: COLORS.GREY_DEFAULT,
     },
   },
   components: {
@@ -73,8 +81,9 @@ const theme = createTheme({
           color: COLORS.GREEN_NEON,
           borderRadius: 0,
           height: '8px',
-          '.MuiSlider-thumb.Mui-focusVisible, .MuiSlider-thumb:hover, .MuiSlider-thumb:active': {
-            boxShadow: 'none',
+
+          '.MuiSlider-thumb:hover, .Mui-active, .Mui-focusVisible': {
+            boxShadow: `0 0 0 8px ${alpha(COLORS.GREEN_NEON, 0.16)}`,
           },
         },
         thumbColorPrimary: '#000000',
