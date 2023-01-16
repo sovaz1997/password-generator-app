@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Box,
-  Checkbox, FormControlLabel, FormGroup, Slider, styled, Typography,
+  Checkbox, FormControlLabel, FormGroup, Slider, styled, Typography, useTheme,
 } from '@mui/material';
 import GeneratePasswordButton from './components/generate-password-button';
 import { generatePassword, getPasswordStrength, PasswordGenerationParams } from './utils/password';
@@ -50,6 +50,8 @@ const isNumber = (x: any): x is number => typeof x === 'number';
 const App = () => {
   const [password, setPassword] = useState('');
   const [generationParams, setGenerationParams] = useState(DEFAULT_GENERATION_PARAMS);
+
+  const theme = useTheme();
 
   const handleGeneratePassword = () => {
     setPassword(generatePassword(generationParams));
@@ -102,23 +104,29 @@ const App = () => {
   return (
     <Wrapper>
       <PageWrapper>
-        <Typography variant="h1" fontSize={16} paddingY={4}>Password generator</Typography>
-        <PasswordField value={password} />
-        <Slider
-          value={generationParams.length}
-          onChange={handleChangePasswordLength}
-          step={1}
-          min={PASSWORD_LENGTH_RANGE.from}
-          max={PASSWORD_LENGTH_RANGE.to}
-        />
-        <CharsetToggleFormGroup>
-          { renderCharSetToggle(PasswordCharsSet.Digits) }
-          { renderCharSetToggle(PasswordCharsSet.LowercaseLetters) }
-          { renderCharSetToggle(PasswordCharsSet.UppercaseLetters) }
-          { renderCharSetToggle(PasswordCharsSet.SpecialSymbols) }
-        </CharsetToggleFormGroup>
-        <PasswordStrengthIndicator strength={getPasswordStrength(generationParams)} />
-        <GeneratePasswordButton onClick={handleGeneratePassword} />
+        <Typography variant="h1" fontSize={16} paddingTop={4} marginBottom={4}>
+          Password generator
+        </Typography>
+        <Box marginBottom={3}>
+          <PasswordField value={password} />
+        </Box>
+        <Box bgcolor={theme.palette.greyDark} paddingX={4} paddingY={3} gap={3} display="flex" flexDirection="column">
+          <Slider
+            value={generationParams.length}
+            onChange={handleChangePasswordLength}
+            step={1}
+            min={PASSWORD_LENGTH_RANGE.from}
+            max={PASSWORD_LENGTH_RANGE.to}
+          />
+          <CharsetToggleFormGroup>
+            { renderCharSetToggle(PasswordCharsSet.Digits) }
+            { renderCharSetToggle(PasswordCharsSet.LowercaseLetters) }
+            { renderCharSetToggle(PasswordCharsSet.UppercaseLetters) }
+            { renderCharSetToggle(PasswordCharsSet.SpecialSymbols) }
+          </CharsetToggleFormGroup>
+          <PasswordStrengthIndicator strength={getPasswordStrength(generationParams)} />
+          <GeneratePasswordButton onClick={handleGeneratePassword} />
+        </Box>
       </PageWrapper>
     </Wrapper>
   );

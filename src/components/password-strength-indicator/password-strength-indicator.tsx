@@ -29,6 +29,7 @@ const PasswordStrengthIndicator: FC<PasswordStrengthIndicatorProps> = ({ strengt
       display="flex"
       alignItems="center"
       justifyContent="space-between"
+      height="72px"
     >
       <Typography textTransform="uppercase" color={greyDefault}>Strength</Typography>
       <Box display="flex" alignItems="center" gap={2}>
