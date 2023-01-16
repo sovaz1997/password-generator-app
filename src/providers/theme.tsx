@@ -83,7 +83,7 @@ const theme = createTheme({
           height: '8px',
 
           '.MuiSlider-thumb:hover, .Mui-active, .Mui-focusVisible': {
-            boxShadow: `0 0 0 8px ${alpha(COLORS.GREEN_NEON, 0.16)}`,
+            boxShadow: `0 0 0 8px ${alpha(COLORS.GREEN_NEON, 0.16)} !important`,
           },
         },
         thumbColorPrimary: '#000000',

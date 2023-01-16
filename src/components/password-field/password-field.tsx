@@ -16,6 +16,27 @@ interface PasswordContentProps {
   disabled: boolean
 }
 
+interface IconButtonProps {
+  fill: string;
+}
+
+const IconButton = styled('button')<IconButtonProps>`
+  background: transparent;
+  border: none;
+  outline: none;
+  
+  fill: ${(p) => p.fill};
+  
+  :enabled {
+    cursor: pointer;
+
+    &:hover, &:focus {
+      fill: ${({ theme }) => theme.palette.greenNeon};
+    }
+  ;
+  }
+`;
+
 const PasswordContent = styled(Box)<PasswordContentProps>`
   display: flex;
   justify-content: space-between;
@@ -33,7 +54,7 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
   const hoverRef = useRef(null);
   const isHover = useHover(hoverRef);
 
-  const handleClick = () => {
+  const copyValue = () => {
     if (value) {
       copy(value);
     }
@@ -52,12 +73,16 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
       return isHover ? greenNeon : white;
     };
 
-    return <Icons.Copy fill={getFill()} />;
+    return (
+      <IconButton fill={getFill()} disabled={!value} onClick={copyValue}>
+        <Icons.Copy />
+      </IconButton>
+    );
   };
 
   return (
     <Box
-      onClick={handleClick}
+      onClick={copyValue}
       ref={hoverRef}
       bgcolor={greyDark}
       alignItems="center"
