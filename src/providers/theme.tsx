@@ -108,10 +108,19 @@ const theme = createTheme({
           paddingLeft: 0,
           paddingTop: 0,
           paddingBottom: 0,
-          paddingRight: 24,
+          paddingRight: 0,
+          marginRight: 24,
 
           '&.Mui-disabled': {
             opacity: DISABLED_OPACITY,
+          },
+
+          '&.Mui-focusVisible': {
+            backgroundColor: 'transparent',
+            // eslint-disable-next-line max-len
+            transition: 'box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,left 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,bottom 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+            boxShadow: `0 0 0 8px ${alpha(COLORS.GREEN_NEON, 0.16)} !important`,
+            outline: 'none',
           },
         },
       },

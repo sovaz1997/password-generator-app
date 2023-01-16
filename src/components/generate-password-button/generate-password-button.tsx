@@ -14,7 +14,7 @@ interface GeneratePasswordButtonProps {
 }
 
 const GeneratePasswordButton: FC<GeneratePasswordButtonProps> = ({ onClick }) => (
-  <Button fullWidth onClick={onClick}>
+  <Button fullWidth onClick={onClick} type="submit">
     <ButtonContent>
       Generate
       <Icons.ArrowRight />

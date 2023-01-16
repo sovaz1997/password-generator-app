@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import {
   Box,
   Checkbox, FormControlLabel, FormGroup, Slider, styled, Typography, useTheme,
@@ -53,10 +53,6 @@ const App = () => {
 
   const theme = useTheme();
 
-  const handleGeneratePassword = () => {
-    setPassword(generatePassword(generationParams));
-  };
-
   const handleChangeCharsSets = (set: PasswordCharsSet, enabled: boolean) => {
     setGenerationParams((cur) => {
       const { passwordCharsSets } = cur;
@@ -101,6 +97,11 @@ const App = () => {
     );
   };
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    setPassword(generatePassword(generationParams));
+  };
+
   return (
     <Wrapper>
       <PageWrapper>
@@ -110,23 +111,25 @@ const App = () => {
         <Box marginBottom={3}>
           <PasswordField value={password} />
         </Box>
-        <Box bgcolor={theme.palette.greyDark} paddingX={4} paddingY={3} gap={3} display="flex" flexDirection="column">
-          <Slider
-            value={generationParams.length}
-            onChange={handleChangePasswordLength}
-            step={1}
-            min={PASSWORD_LENGTH_RANGE.from}
-            max={PASSWORD_LENGTH_RANGE.to}
-          />
-          <CharsetToggleFormGroup>
-            { renderCharSetToggle(PasswordCharsSet.Digits) }
-            { renderCharSetToggle(PasswordCharsSet.LowercaseLetters) }
-            { renderCharSetToggle(PasswordCharsSet.UppercaseLetters) }
-            { renderCharSetToggle(PasswordCharsSet.SpecialSymbols) }
-          </CharsetToggleFormGroup>
-          <PasswordStrengthIndicator strength={getPasswordStrength(generationParams)} />
-          <GeneratePasswordButton onClick={handleGeneratePassword} />
-        </Box>
+        <form onSubmit={handleSubmit}>
+          <Box bgcolor={theme.palette.greyDark} paddingX={4} paddingY={3} gap={3} display="flex" flexDirection="column">
+            <Slider
+              value={generationParams.length}
+              onChange={handleChangePasswordLength}
+              step={1}
+              min={PASSWORD_LENGTH_RANGE.from}
+              max={PASSWORD_LENGTH_RANGE.to}
+            />
+            <CharsetToggleFormGroup>
+              { renderCharSetToggle(PasswordCharsSet.Digits) }
+              { renderCharSetToggle(PasswordCharsSet.LowercaseLetters) }
+              { renderCharSetToggle(PasswordCharsSet.UppercaseLetters) }
+              { renderCharSetToggle(PasswordCharsSet.SpecialSymbols) }
+            </CharsetToggleFormGroup>
+            <PasswordStrengthIndicator strength={getPasswordStrength(generationParams)} />
+            <GeneratePasswordButton />
+          </Box>
+        </form>
       </PageWrapper>
     </Wrapper>
   );
