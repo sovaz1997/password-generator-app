@@ -1,9 +1,12 @@
+import { Entries } from 'type-fest';
 import { PasswordCharsSet, PasswordStrength } from '../../constants/password';
 
 export interface PasswordGenerationParams {
   length: number;
   passwordCharsSets: PasswordCharsSet[];
 }
+
+type PasswordEntropyIntervals = Record<PasswordStrength, [number, number]>;
 
 const SPECIAL_SYMBOLS = '~`! @#$%^&*()_-+={[}]|\\:;"\'<,>.?/';
 const LOWERCASE_LETTERS = 'abcdefghijklmnopqrstuvwxyz';
@@ -17,7 +20,7 @@ const PASSWORD_CHARS: Record<PasswordCharsSet, string> = {
   [PasswordCharsSet.SpecialSymbols]: SPECIAL_SYMBOLS,
 };
 
-const PASSWORD_ENTROPY_INTERVALS: Record<PasswordStrength, [number, number]> = {
+const PASSWORD_ENTROPY_INTERVALS: PasswordEntropyIntervals = {
   [PasswordStrength.TooWeak]: [0, 20],
   [PasswordStrength.Weak]: [20, 35],
   [PasswordStrength.Medium]: [35, 55],
@@ -59,8 +62,8 @@ export const getPasswordEntropy = ({ length, passwordCharsSets }: PasswordGenera
   return Math.log2(charsVariationsCount) * length;
 };
 
-export const getPasswordStrengthFromEntropy = (entropy: number) => Object
-  .entries(PASSWORD_ENTROPY_INTERVALS)
+export const getPasswordStrengthFromEntropy = (entropy: number) => (Object
+  .entries(PASSWORD_ENTROPY_INTERVALS) as Entries<PasswordEntropyIntervals>)
   .filter(([, [a, b]]) => isNumberInInterval(entropy, [a, b]))[0][0];
 export const getPasswordStrength = (params: PasswordGenerationParams) => getPasswordStrengthFromEntropy(
   getPasswordEntropy(params),

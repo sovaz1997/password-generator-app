@@ -7,6 +7,7 @@ import GeneratePasswordButton from './components/generate-password-button';
 import { generatePassword, getPasswordStrength, PasswordGenerationParams } from './utils/password';
 import { PasswordCharsSet } from './constants/password';
 import PasswordField from './components/password-field';
+import PasswordStrengthIndicator from './components/password-strength-indicator';
 
 // TODO: Divide by App and password generation page
 
@@ -116,7 +117,7 @@ const App = () => {
           { renderCharSetToggle(PasswordCharsSet.UppercaseLetters) }
           { renderCharSetToggle(PasswordCharsSet.SpecialSymbols) }
         </CharsetToggleFormGroup>
-        {getPasswordStrength(generationParams)}
+        <PasswordStrengthIndicator strength={getPasswordStrength(generationParams)} />
         <GeneratePasswordButton onClick={handleGeneratePassword} />
       </PageWrapper>
     </Wrapper>

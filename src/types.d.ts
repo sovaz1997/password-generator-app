@@ -8,6 +8,7 @@ declare module '@mui/material/styles/createPalette' {
     orange: string;
     yellow: string;
     greenNeon: string;
+    greyDefault: string;
     white: string;
     greyDark: string;
     greyVeryDark: string;
@@ -18,6 +19,7 @@ declare module '@mui/material/styles/createPalette' {
     orange: string;
     yellow: string;
     greenNeon: string;
+    greyDefault: string;
     white: string;
     greyDark: string;
     greyVeryDark: string;

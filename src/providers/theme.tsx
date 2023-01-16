@@ -34,6 +34,7 @@ const theme = createTheme({
     white: COLORS.WHITE,
     greyDark: '#24232C',
     greyVeryDark: COLORS.GREY_VERY_DARK,
+    greyDefault: '#817D92',
   },
   typography: {
     fontFamily: FONT_FAMILY,
@@ -98,6 +99,8 @@ const theme = createTheme({
           paddingLeft: 0,
           paddingTop: 0,
           paddingBottom: 0,
+          paddingRight: 24,
+
           '&.Mui-disabled': {
             opacity: DISABLED_OPACITY,
           },
