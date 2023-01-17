@@ -22,7 +22,7 @@ interface CharsetSelectorProps {
   onChange: (newValue: PasswordCharsSet[]) => void;
 }
 
-const CharsetSelector: FC<CharsetSelectorProps> = ({ value, onChange }) => {
+const CharsetControl: FC<CharsetSelectorProps> = ({ value, onChange }) => {
   const handleChange = (set: PasswordCharsSet, checked: boolean) => {
     const charsSet = new Set([...value]);
 
@@ -62,4 +62,4 @@ const CharsetSelector: FC<CharsetSelectorProps> = ({ value, onChange }) => {
   );
 };
 
-export default CharsetSelector;
+export default CharsetControl;
