@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { generatePassword, PasswordGenerationParams } from '../utils/password';
 import { PasswordCharsSet } from '../constants/password';
 
@@ -11,18 +11,28 @@ const DEFAULT_GENERATION_PARAMS: PasswordGenerationParams = {
 };
 
 const usePasswordGenerator = () => {
-  const [generationParams, setGenerationParams] = useState(DEFAULT_GENERATION_PARAMS);
+  const [generationParams, setGenerationParams] = useState<PasswordGenerationParams>(DEFAULT_GENERATION_PARAMS);
   const [password, setPassword] = useState('');
 
   const generateNewPassword = () => {
     setPassword(generatePassword(generationParams));
   };
 
+  const updateParam = useCallback(<
+    Key extends keyof PasswordGenerationParams,
+    Value extends PasswordGenerationParams[Key],
+  >(key: Key, value: Value) => {
+    setGenerationParams((cur) => ({
+      ...cur,
+      [key]: value,
+    }));
+  }, []);
+
   return {
     generationParams,
     password,
     generateNewPassword,
-    setGenerationParams,
+    updateParam,
   };
 };
 

@@ -1,15 +1,15 @@
 import React, { FormEvent } from 'react';
 import {
   Box,
-  Checkbox, FormControlLabel, FormGroup, Slider, styled, Typography, useTheme,
+  Slider, styled, Typography, useTheme,
 } from '@mui/material';
 import GeneratePasswordButton from './components/generate-password-button';
 import { getPasswordStrength } from './utils/password';
-import { PasswordCharsSet } from './constants/password';
 import PasswordField from './components/password-field';
 import PasswordStrengthIndicator from './components/password-strength-indicator';
 import PasswordClipboardProvider from './providers/password-clipboard-provider';
 import usePasswordGenerator from './hooks/use-password-generator';
+import CharsetSelector from './components/charset-selector';
 
 const MIN_PASSWORD_LENGTH = 4;
 const MAX_PASSWORD_LENGTH = 30;
@@ -26,69 +26,19 @@ const PageWrapper = styled(Box)`
   width: 540px;
 `;
 
-const CharsetToggleFormGroup = styled(FormGroup)`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const CHAR_SETS_LABEL_MAP: Record<PasswordCharsSet, string> = {
-  [PasswordCharsSet.LowercaseLetters]: 'Include Lowercase Letters',
-  [PasswordCharsSet.UppercaseLetters]: 'Include Uppercase Letters',
-  [PasswordCharsSet.Digits]: 'Include Digits',
-  [PasswordCharsSet.SpecialSymbols]: 'Include Special Symbols',
-};
-
 const PASSWORD_LENGTH_RANGE = { from: MIN_PASSWORD_LENGTH, to: MAX_PASSWORD_LENGTH };
 const isNumber = (x: any): x is number => typeof x === 'number';
 
 const App = () => {
-  const passwordGenerator = usePasswordGenerator();
-
   const theme = useTheme();
-
-  const handleChangeCharsSets = (set: PasswordCharsSet, enabled: boolean) => {
-    passwordGenerator.setGenerationParams((cur) => {
-      const { passwordCharsSets } = cur;
-
-      const charsSet = new Set([...passwordCharsSets]);
-
-      if (enabled) {
-        charsSet.add(set);
-      } else {
-        charsSet.delete(set);
-      }
-
-      return {
-        ...cur,
-        passwordCharsSets: [...charsSet],
-      };
-    });
-  };
+  const passwordGenerator = usePasswordGenerator();
 
   const handleChangePasswordLength = (e: Event, length: number | number[]) => {
     if (!isNumber(length)) {
       throw new Error('Length must be a number');
     }
 
-    passwordGenerator.setGenerationParams((cur) => ({ ...cur, length }));
-  };
-
-  const renderCharSetToggle = (set: PasswordCharsSet) => {
-    const isChecked = passwordGenerator.generationParams.passwordCharsSets.includes(set);
-
-    return (
-      <FormControlLabel
-        control={(
-          <Checkbox
-            checked={isChecked}
-            onChange={(e, checked) => handleChangeCharsSets(set, checked)}
-            disabled={isChecked && passwordGenerator.generationParams.passwordCharsSets.length === 1}
-          />
-      )}
-        label={CHAR_SETS_LABEL_MAP[set]}
-      />
-    );
+    passwordGenerator.updateParam('length', length);
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -122,12 +72,10 @@ const App = () => {
                 min={PASSWORD_LENGTH_RANGE.from}
                 max={PASSWORD_LENGTH_RANGE.to}
               />
-              <CharsetToggleFormGroup>
-                { renderCharSetToggle(PasswordCharsSet.Digits) }
-                { renderCharSetToggle(PasswordCharsSet.LowercaseLetters) }
-                { renderCharSetToggle(PasswordCharsSet.UppercaseLetters) }
-                { renderCharSetToggle(PasswordCharsSet.SpecialSymbols) }
-              </CharsetToggleFormGroup>
+              <CharsetSelector
+                value={passwordGenerator.generationParams.passwordCharsSets}
+                onChange={(v) => passwordGenerator.updateParam('passwordCharsSets', v)}
+              />
               <PasswordStrengthIndicator strength={getPasswordStrength(passwordGenerator.generationParams)} />
               <GeneratePasswordButton />
             </Box>
