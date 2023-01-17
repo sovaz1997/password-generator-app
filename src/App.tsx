@@ -3,6 +3,7 @@ import {
   Box,
   Checkbox, FormControlLabel, FormGroup, Slider, styled, Typography, useTheme,
 } from '@mui/material';
+import { useHotkeysContext } from 'react-hotkeys-hook';
 import GeneratePasswordButton from './components/generate-password-button';
 import { generatePassword, getPasswordStrength, PasswordGenerationParams } from './utils/password';
 import { PasswordCharsSet } from './constants/password';
