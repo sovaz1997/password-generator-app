@@ -1,5 +1,6 @@
 import React, { FormEvent } from 'react';
 import { Box } from '@mui/material';
+import { useHotkeys } from 'react-hotkeys-hook';
 import GeneratePasswordButton from '../components/generate-password-button';
 import { getPasswordStrength } from '../utils/password';
 import PasswordField from '../components/password-field';
@@ -9,11 +10,19 @@ import usePasswordGenerator from '../hooks/use-password-generator';
 import CharsetControl from '../components/charset-control';
 import PasswordLengthControl from '../components/password-length-control';
 import S from './app.style';
+import { HotkeysScopes } from '../constants/hotkeys';
 
 const App = () => {
   const {
     generationParams, generateNewPassword, password, updateParam,
   } = usePasswordGenerator();
+
+  useHotkeys(
+    'g',
+    generateNewPassword,
+    { scopes: [HotkeysScopes.MAIN], enableOnFormTags: true },
+    [generateNewPassword],
+  );
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

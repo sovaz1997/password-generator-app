@@ -14,9 +14,9 @@ const usePasswordGenerator = () => {
   const [generationParams, setGenerationParams] = useState<PasswordGenerationParams>(DEFAULT_GENERATION_PARAMS);
   const [password, setPassword] = useState('');
 
-  const generateNewPassword = () => {
+  const generateNewPassword = useCallback(() => {
     setPassword(generatePassword(generationParams));
-  };
+  }, [generationParams]);
 
   const updateParam = useCallback(<
     Key extends keyof PasswordGenerationParams,
