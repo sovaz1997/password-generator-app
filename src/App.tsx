@@ -8,6 +8,7 @@ import { generatePassword, getPasswordStrength, PasswordGenerationParams } from 
 import { PasswordCharsSet } from './constants/password';
 import PasswordField from './components/password-field';
 import PasswordStrengthIndicator from './components/password-strength-indicator';
+import PasswordClipboardProvider from './providers/password-clipboard-provider';
 
 // TODO: Divide by App and password generation page
 
@@ -103,35 +104,44 @@ const App = () => {
   };
 
   return (
-    <Wrapper>
-      <PageWrapper>
-        <Typography variant="h1" paddingTop={4} marginBottom={4}>
-          Password generator
-        </Typography>
-        <Box marginBottom={3}>
-          <PasswordField value={password} />
-        </Box>
-        <form onSubmit={handleSubmit}>
-          <Box bgcolor={theme.palette.greyDark} paddingX={4} paddingY={3} gap={3} display="flex" flexDirection="column">
-            <Slider
-              value={generationParams.length}
-              onChange={handleChangePasswordLength}
-              step={1}
-              min={PASSWORD_LENGTH_RANGE.from}
-              max={PASSWORD_LENGTH_RANGE.to}
-            />
-            <CharsetToggleFormGroup>
-              { renderCharSetToggle(PasswordCharsSet.Digits) }
-              { renderCharSetToggle(PasswordCharsSet.LowercaseLetters) }
-              { renderCharSetToggle(PasswordCharsSet.UppercaseLetters) }
-              { renderCharSetToggle(PasswordCharsSet.SpecialSymbols) }
-            </CharsetToggleFormGroup>
-            <PasswordStrengthIndicator strength={getPasswordStrength(generationParams)} />
-            <GeneratePasswordButton />
+    <PasswordClipboardProvider password={password}>
+      <Wrapper>
+        <PageWrapper>
+          <Typography variant="h1" paddingTop={4} marginBottom={4}>
+            Password generator
+          </Typography>
+          <Box marginBottom={3}>
+            <PasswordField value={password} />
           </Box>
-        </form>
-      </PageWrapper>
-    </Wrapper>
+          <form onSubmit={handleSubmit}>
+            <Box
+              bgcolor={theme.palette.greyDark}
+              paddingX={4}
+              paddingY={3}
+              gap={3}
+              display="flex"
+              flexDirection="column"
+            >
+              <Slider
+                value={generationParams.length}
+                onChange={handleChangePasswordLength}
+                step={1}
+                min={PASSWORD_LENGTH_RANGE.from}
+                max={PASSWORD_LENGTH_RANGE.to}
+              />
+              <CharsetToggleFormGroup>
+                { renderCharSetToggle(PasswordCharsSet.Digits) }
+                { renderCharSetToggle(PasswordCharsSet.LowercaseLetters) }
+                { renderCharSetToggle(PasswordCharsSet.UppercaseLetters) }
+                { renderCharSetToggle(PasswordCharsSet.SpecialSymbols) }
+              </CharsetToggleFormGroup>
+              <PasswordStrengthIndicator strength={getPasswordStrength(generationParams)} />
+              <GeneratePasswordButton />
+            </Box>
+          </form>
+        </PageWrapper>
+      </Wrapper>
+    </PasswordClipboardProvider>
   );
 };
 

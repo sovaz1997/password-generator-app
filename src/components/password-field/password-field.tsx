@@ -2,11 +2,12 @@ import {
   Box, styled, useTheme, css, alpha,
 } from '@mui/material';
 import { FC, useRef } from 'react';
-import { useCopyToClipboard, useHover } from 'usehooks-ts';
+import { useHover } from 'usehooks-ts';
 import { useHotkeys } from 'react-hotkeys-hook';
 import Icons from '../icons';
 import { HotkeysScopes } from '../../constants/hotkeys';
 import AdaptiveTypography from '../adaptive-typography/adaptive-typography';
+import usePasswordClipboardContext from '../../hooks/usePasswordClipboardContext';
 
 const PLACEHOLDER_TEXT = 'P4$5W0rD!';
 const PASSWORD_FONT_SIZE = 32;
@@ -62,21 +63,15 @@ const PasswordContent = styled(Box)<PasswordContentProps>`
 
 const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
   const theme = useTheme();
-  const [, copyToClipboard] = useCopyToClipboard();
+
+  const passwordClipboard = usePasswordClipboardContext();
 
   const { palette: { white, greenNeon, greyDark } } = theme;
 
   const hoverRef = useRef(null);
   const isHover = useHover(hoverRef);
 
-  const copyValueToClipboard = () => {
-    if (value) {
-      copyToClipboard(value);
-    }
-    // eslint-disable-next-line
-  };
-
-  useHotkeys('ctrl+c', copyValueToClipboard, { scopes: [HotkeysScopes.MAIN], enableOnFormTags: true }, [value]);
+  useHotkeys('ctrl+c', passwordClipboard.copy, { scopes: [HotkeysScopes.MAIN], enableOnFormTags: true }, [value]);
 
   const renderPassword = () => (
     <AdaptiveTypography fontSize={PASSWORD_FONT_SIZE}>{ value || PLACEHOLDER_TEXT }</AdaptiveTypography>
@@ -96,7 +91,7 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
         onMouseDown={(e) => e.preventDefault()}
         fill={getFill()}
         disabled={!value}
-        onClick={copyValueToClipboard}
+        onClick={passwordClipboard.copy}
       >
         <Icons.Copy />
       </IconButton>
@@ -105,7 +100,7 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
 
   return (
     <Box
-      onClick={copyValueToClipboard}
+      onClick={passwordClipboard.copy}
       ref={hoverRef}
       bgcolor={greyDark}
       alignItems="center"
