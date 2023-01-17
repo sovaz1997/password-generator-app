@@ -5,7 +5,7 @@ import {
   alpha, Box, css, styled, Typography, useTheme,
 } from '@mui/material';
 import Icons from '../icons';
-import usePasswordClipboardContext from '../../hooks/usePasswordClipboardContext';
+import usePasswordClipboardContext from '../../hooks/use-password-clipboard-context';
 
 // TODO: Divide
 
