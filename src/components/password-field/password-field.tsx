@@ -35,7 +35,7 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
 
   const passwordClipboard = usePasswordClipboardContext();
 
-  const { palette: { white, greenNeon, greyDark } } = theme;
+  const { palette: { greyDark } } = theme;
 
   const hoverRef = useRef(null);
   const isHover = useHover(hoverRef);
@@ -46,24 +46,14 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
     <AdaptiveTypography fontSize={PASSWORD_FONT_SIZE}>{ value || PLACEHOLDER_TEXT }</AdaptiveTypography>
   );
 
-  const renderCopyIcon = () => {
-    const getFill = () => {
-      if (!value) {
-        return white;
-      }
-
-      return isHover ? greenNeon : white;
-    };
-
-    return (
-      <CopyButton
-        fill={getFill()}
-        disabled={!value}
-        onClick={passwordClipboard.copy}
-        password={value}
-      />
-    );
-  };
+  const renderCopyIcon = () => (
+    <CopyButton
+      hovered={isHover}
+      disabled={!value}
+      onClick={passwordClipboard.copy}
+      password={value}
+    />
+  );
 
   return (
     <Box

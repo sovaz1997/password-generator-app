@@ -1,11 +1,16 @@
-import { FC, useEffect, useState } from 'react';
 import {
-  alpha, Box, css, styled, Typography,
+  FC, useEffect, useMemo, useState,
+} from 'react';
+import {
+  alpha, Box, css, styled, Typography, useTheme,
 } from '@mui/material';
 import Icons from '../icons';
 import usePasswordClipboardContext from '../../hooks/usePasswordClipboardContext';
 
+// TODO: Divide
+
 const SHOW_COPIED_TIME_MS = 3000;
+const ANIMATION_TIME = '200ms';
 
 interface IconButtonProps {
   fill: string;
@@ -20,6 +25,8 @@ const IconButton = styled('button')<IconButtonProps>`
   outline: none;
   
   fill: ${(p) => p.fill};
+  
+  transition: fill ${ANIMATION_TIME} ease-out;
   
   :enabled {
     cursor: pointer;
@@ -55,7 +62,9 @@ const CopiedText = styled(Typography)<CopiedTextProps>`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  transition: opacity 0.1s ease-out, left 0.1s cubic-bezier(0, 0, 0.65, 1.39);
+  transition: opacity ${ANIMATION_TIME} ease-out,
+    left ${ANIMATION_TIME} cubic-bezier(0, 0, 0.65, 1.39),
+    color ${ANIMATION_TIME} ease-out;
   z-index: -1;
   
   ${(p) => p.show && css`
@@ -72,19 +81,33 @@ const CopiedText = styled(Typography)<CopiedTextProps>`
 `;
 
 interface CopyButtonProps {
-  fill: string;
   onClick: () => void;
   disabled?: boolean;
   password: string;
+  hovered: boolean;
 }
 
 // TODO: replace fill to "hovered" and do some changes (when we copy password, always show it as green) + add transition
 const CopyButton: FC<CopyButtonProps> = ({
-  fill, onClick, disabled = false, password,
+  onClick, disabled = false, password, hovered,
 }) => {
+  const theme = useTheme();
+  const { palette: { white, greenNeon } } = theme;
   const { lastClipboardUsage } = usePasswordClipboardContext();
 
   const [showCopiedText, setShowCopiedText] = useState(false);
+
+  const fill = useMemo(() => {
+    if (showCopiedText) {
+      return greenNeon;
+    }
+
+    if (!password) {
+      return white;
+    }
+
+    return hovered ? greenNeon : white;
+  }, [greenNeon, hovered, password, showCopiedText, white]);
 
   useEffect(() => {
     let timeoutId = 0;
