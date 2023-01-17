@@ -1,6 +1,11 @@
-import { FC } from 'react';
-import { alpha, styled } from '@mui/material';
+import { FC, useEffect, useState } from 'react';
+import {
+  alpha, Box, styled, Typography,
+} from '@mui/material';
 import Icons from '../icons';
+import usePasswordClipboardContext from '../../hooks/usePasswordClipboardContext';
+
+const SHOW_COPIED_TIME_MS = 3000;
 
 interface IconButtonProps {
   fill: string;
@@ -34,21 +39,74 @@ const IconButton = styled('button')<IconButtonProps>`
   }
 `;
 
+const Wrapper = styled(Box)`
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  width: 100px;
+`;
+
+const CopiedText = styled(Typography)`
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
 interface CopyButtonProps {
   fill: string;
   onClick: () => void;
   disabled?: boolean;
+  password: string;
 }
 
-const CopyButton: FC<CopyButtonProps> = ({ fill, onClick, disabled = false }) => (
-  <IconButton
-    onMouseDown={(e) => e.preventDefault()}
-    fill={fill}
-    disabled={disabled}
-    onClick={onClick}
-  >
-    <Icons.Copy />
-  </IconButton>
-);
+const CopyButton: FC<CopyButtonProps> = ({
+  fill, onClick, disabled = false, password,
+}) => {
+  const { lastClipboardUsage } = usePasswordClipboardContext();
+
+  const [showCopiedText, setShowCopiedText] = useState(false);
+
+  useEffect(() => {
+    let timeoutId = 0;
+
+    const showCopiedTextForSomeTimeWhenClipboardUsed = () => {
+      setShowCopiedText(false);
+      if (lastClipboardUsage) {
+        setShowCopiedText(true);
+
+        timeoutId = window.setTimeout(() => {
+          setShowCopiedText(false);
+        }, SHOW_COPIED_TIME_MS);
+      }
+
+      return () => clearTimeout(timeoutId);
+    };
+
+    return showCopiedTextForSomeTimeWhenClipboardUsed();
+  }, [lastClipboardUsage]);
+
+  useEffect(() => {
+    const resetShowingCopiedOnPasswordUpdate = () => {
+      setShowCopiedText(false);
+    };
+
+    resetShowingCopiedOnPasswordUpdate();
+  }, [password]);
+
+  return (
+    <Wrapper>
+      {showCopiedText && <CopiedText color={fill} textTransform="uppercase">Copied</CopiedText>}
+      <IconButton
+        onMouseDown={(e) => e.preventDefault()}
+        fill={fill}
+        disabled={disabled}
+        onClick={onClick}
+      >
+        <Icons.Copy />
+      </IconButton>
+    </Wrapper>
+  );
+};
 
 export default CopyButton;

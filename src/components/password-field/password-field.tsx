@@ -13,7 +13,7 @@ const PLACEHOLDER_TEXT = 'P4$5W0rD!';
 const PASSWORD_FONT_SIZE = 32;
 
 interface PasswordFieldProps {
-  value?: string;
+  value: string;
 }
 
 interface PasswordContentProps {
@@ -25,6 +25,7 @@ const PasswordContent = styled(Box)<PasswordContentProps>`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  gap: 10px;
 
   ${(p) => p.disabled && css`opacity: 0.25`}
 `;
@@ -59,6 +60,7 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
         fill={getFill()}
         disabled={!value}
         onClick={passwordClipboard.copy}
+        password={value}
       />
     );
   };
