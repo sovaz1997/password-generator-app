@@ -4,7 +4,7 @@ import { PasswordStrength } from '../../constants/password';
 
 interface RectProps {
   color: string;
-  enabled: number;
+  enabled: boolean;
 }
 
 const Rect = styled(Box)<RectProps>`
@@ -56,7 +56,7 @@ const RectIndicator: FC<RectIndicatorProps> = ({ strength }) => {
     [PasswordStrength.Strong]: greenNeon,
   };
 
-  const strengthToDisplayedRects: Record<PasswordStrength, number> = {
+  const strengthToDisplayedRectsCount: Record<PasswordStrength, number> = {
     [PasswordStrength.TooWeak]: 1,
     [PasswordStrength.Weak]: 2,
     [PasswordStrength.Medium]: 3,
@@ -71,7 +71,7 @@ const RectIndicator: FC<RectIndicatorProps> = ({ strength }) => {
             <Rect
               key={i}
               color={strengthToColor[strength]}
-              enabled={Number(strengthToDisplayedRects[strength] >= i)}
+              enabled={strengthToDisplayedRectsCount[strength] >= i}
             />
           ))}
       </>

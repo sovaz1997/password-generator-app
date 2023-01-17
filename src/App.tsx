@@ -44,7 +44,7 @@ const DEFAULT_GENERATION_PARAMS: PasswordGenerationParams = {
   length: 10,
 };
 
-const PASSWORD_LENGTH_RANGE = { from: 4, to: 25 };
+const PASSWORD_LENGTH_RANGE = { from: 4, to: 30 };
 const isNumber = (x: any): x is number => typeof x === 'number';
 
 const App = () => {

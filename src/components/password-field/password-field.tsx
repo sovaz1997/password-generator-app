@@ -1,11 +1,12 @@
 import {
-  Box, styled, Typography, useTheme, css, alpha,
+  Box, styled, useTheme, css, alpha,
 } from '@mui/material';
 import { FC, useRef } from 'react';
 import { useCopyToClipboard, useHover } from 'usehooks-ts';
 import { useHotkeys } from 'react-hotkeys-hook';
 import Icons from '../icons';
 import { HotkeysScopes } from '../../constants/hotkeys';
+import AdaptiveTypography from '../adaptive-typography/adaptive-typography';
 
 const PLACEHOLDER_TEXT = 'P4$5W0rD!';
 const PASSWORD_FONT_SIZE = 32;
@@ -78,7 +79,7 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
   useHotkeys('ctrl+c', copyValueToClipboard, { scopes: [HotkeysScopes.MAIN], enableOnFormTags: true }, [value]);
 
   const renderPassword = () => (
-    <Typography fontSize={PASSWORD_FONT_SIZE}>{ value || PLACEHOLDER_TEXT }</Typography>
+    <AdaptiveTypography fontSize={PASSWORD_FONT_SIZE}>{ value || PLACEHOLDER_TEXT }</AdaptiveTypography>
   );
 
   const renderCopyIcon = () => {
