@@ -10,6 +10,9 @@ import PasswordField from './components/password-field';
 import PasswordStrengthIndicator from './components/password-strength-indicator';
 import PasswordClipboardProvider from './providers/password-clipboard-provider';
 
+const MIN_PASSWORD_LENGTH = 4;
+const MAX_PASSWORD_LENGTH = 30;
+
 // TODO: Divide by App and password generation page
 
 const Wrapper = styled(Box)`
@@ -45,11 +48,12 @@ const DEFAULT_GENERATION_PARAMS: PasswordGenerationParams = {
   length: 10,
 };
 
-const PASSWORD_LENGTH_RANGE = { from: 4, to: 30 };
+const PASSWORD_LENGTH_RANGE = { from: MIN_PASSWORD_LENGTH, to: MAX_PASSWORD_LENGTH };
 const isNumber = (x: any): x is number => typeof x === 'number';
 
 const App = () => {
   const [password, setPassword] = useState('');
+  // TODO: Move to usePasswordGenerator all that connected with password generation
   const [generationParams, setGenerationParams] = useState(DEFAULT_GENERATION_PARAMS);
 
   const theme = useTheme();
@@ -98,9 +102,13 @@ const App = () => {
     );
   };
 
+  const generateNewPassword = () => {
+    setPassword(generatePassword(generationParams));
+  };
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    setPassword(generatePassword(generationParams));
+    generateNewPassword();
   };
 
   return (

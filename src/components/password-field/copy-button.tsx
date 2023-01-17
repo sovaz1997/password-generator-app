@@ -78,6 +78,7 @@ interface CopyButtonProps {
   password: string;
 }
 
+// TODO: replace fill to "hovered" and do some changes (when we copy password, always show it as green) + add transition
 const CopyButton: FC<CopyButtonProps> = ({
   fill, onClick, disabled = false, password,
 }) => {
