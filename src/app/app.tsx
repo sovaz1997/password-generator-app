@@ -11,33 +11,35 @@ import PasswordLengthControl from '../components/password-length-control';
 import S from './app.style';
 
 const App = () => {
-  const passwordGenerator = usePasswordGenerator();
+  const {
+    generationParams, generateNewPassword, password, updateParam,
+  } = usePasswordGenerator();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    passwordGenerator.generateNewPassword();
+    generateNewPassword();
   };
 
   return (
-    <PasswordClipboardProvider password={passwordGenerator.password}>
+    <PasswordClipboardProvider password={password}>
       <S.Wrapper>
         <S.PageWrapper>
           <S.Title variant="h1">
             Password generator
           </S.Title>
-          <PasswordField value={passwordGenerator.password} />
+          <PasswordField value={password} />
           <Box height={24} />
           <form onSubmit={handleSubmit}>
             <S.FormBox>
               <PasswordLengthControl
-                value={passwordGenerator.generationParams.length}
-                onChange={(v) => passwordGenerator.updateParam('length', v)}
+                value={generationParams.length}
+                onChange={(v) => updateParam('length', v)}
               />
               <CharsetControl
-                value={passwordGenerator.generationParams.passwordCharsSets}
-                onChange={(v) => passwordGenerator.updateParam('passwordCharsSets', v)}
+                value={generationParams.passwordCharsSets}
+                onChange={(v) => updateParam('passwordCharsSets', v)}
               />
-              <PasswordStrengthIndicator strength={getPasswordStrength(passwordGenerator.generationParams)} />
+              <PasswordStrengthIndicator strength={getPasswordStrength(generationParams)} />
               <GeneratePasswordButton />
             </S.FormBox>
           </form>
