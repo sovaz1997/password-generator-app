@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import {
-  alpha, Box, styled, Typography,
+  alpha, Box, css, styled, Typography,
 } from '@mui/material';
 import Icons from '../icons';
 import usePasswordClipboardContext from '../../hooks/usePasswordClipboardContext';
@@ -44,13 +44,31 @@ const Wrapper = styled(Box)`
   display: flex;
   justify-content: flex-end;
   width: 100px;
+  z-index: 0;
 `;
 
-const CopiedText = styled(Typography)`
+interface CopiedTextProps {
+  show: boolean;
+}
+
+const CopiedText = styled(Typography)<CopiedTextProps>`
   position: absolute;
-  left: 0;
   top: 50%;
   transform: translateY(-50%);
+  transition: opacity 0.1s ease-out, left 0.1s cubic-bezier(0, 0, 0.65, 1.39);
+  z-index: -1;
+  
+  ${(p) => p.show && css`
+    opacity: 1;
+    left: 0;
+  `};
+
+
+
+  ${(p) => !p.show && css`
+    opacity: 0;
+    left: 40px;
+  `};
 `;
 
 interface CopyButtonProps {
@@ -96,7 +114,7 @@ const CopyButton: FC<CopyButtonProps> = ({
 
   return (
     <Wrapper>
-      {showCopiedText && <CopiedText color={fill} textTransform="uppercase">Copied</CopiedText>}
+      <CopiedText show={showCopiedText} color={fill} textTransform="uppercase">Copied</CopiedText>
       <IconButton
         onMouseDown={(e) => e.preventDefault()}
         fill={fill}
