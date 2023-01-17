@@ -50,7 +50,7 @@ const Wrapper = styled(Box)`
   position: relative;
   display: flex;
   justify-content: flex-end;
-  width: 100px;
+  width: 105px;
   z-index: 0;
 `;
 
