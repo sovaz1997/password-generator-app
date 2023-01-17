@@ -12,7 +12,7 @@ import PasswordStrengthIndicator from './components/password-strength-indicator'
 import PasswordClipboardProvider from './providers/password-clipboard-provider';
 import usePasswordGenerator from './hooks/use-password-generator';
 import CharsetControl from './components/charset-control';
-import PasswordLengthControl from './components/password-length-control/password-length-control';
+import PasswordLengthControl from './components/password-length-control';
 
 const Wrapper = styled(Box)`
   box-sizing: border-box;
