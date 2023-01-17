@@ -1,7 +1,7 @@
 import {
   Box, styled, Typography, useTheme, css, alpha,
 } from '@mui/material';
-import { FC, useCallback, useRef } from 'react';
+import { FC, useRef } from 'react';
 import { useCopyToClipboard, useHover } from 'usehooks-ts';
 import { useHotkeys } from 'react-hotkeys-hook';
 import Icons from '../icons';
@@ -68,14 +68,14 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
   const hoverRef = useRef(null);
   const isHover = useHover(hoverRef);
 
-  const copyValueToClipboard = useCallback(() => {
+  const copyValueToClipboard = () => {
     if (value) {
       copyToClipboard(value);
     }
     // eslint-disable-next-line
-  }, [value]);
+  };
 
-  useHotkeys('ctrl+c', copyValueToClipboard, { scopes: [HotkeysScopes.MAIN] }, [copyValueToClipboard]);
+  useHotkeys('ctrl+c', copyValueToClipboard, { scopes: [HotkeysScopes.MAIN], enableOnFormTags: true }, [value]);
 
   const renderPassword = () => (
     <Typography fontSize={PASSWORD_FONT_SIZE}>{ value || PLACEHOLDER_TEXT }</Typography>
@@ -91,7 +91,12 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
     };
 
     return (
-      <IconButton onMouseDown={(e) => e.preventDefault()} fill={getFill()} disabled={!value} onClick={copyValueToClipboard}>
+      <IconButton
+        onMouseDown={(e) => e.preventDefault()}
+        fill={getFill()}
+        disabled={!value}
+        onClick={copyValueToClipboard}
+      >
         <Icons.Copy />
       </IconButton>
     );
