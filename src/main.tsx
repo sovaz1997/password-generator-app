@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import { HotkeysProvider } from 'react-hotkeys-hook';
 import ThemeProvider from './providers/theme';
+import { HotkeysScopes } from './constants/hotkeys';
+import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <HotkeysProvider initiallyActiveScopes={[HotkeysScopes.MAIN]}>
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
+    </HotkeysProvider>
   </React.StrictMode>,
 );

@@ -1,9 +1,11 @@
 import {
   Box, styled, Typography, useTheme, css, alpha,
 } from '@mui/material';
-import { FC, useRef } from 'react';
+import { FC, useCallback, useRef } from 'react';
 import { useCopyToClipboard, useHover } from 'usehooks-ts';
+import { useHotkeys } from 'react-hotkeys-hook';
 import Icons from '../icons';
+import { HotkeysScopes } from '../../constants/hotkeys';
 
 const PLACEHOLDER_TEXT = 'P4$5W0rD!';
 const PASSWORD_FONT_SIZE = 32;
@@ -59,17 +61,21 @@ const PasswordContent = styled(Box)<PasswordContentProps>`
 
 const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
   const theme = useTheme();
-  const [, copy] = useCopyToClipboard();
+  const [, copyToClipboard] = useCopyToClipboard();
+
   const { palette: { white, greenNeon, greyDark } } = theme;
 
   const hoverRef = useRef(null);
   const isHover = useHover(hoverRef);
 
-  const copyValue = () => {
+  const copyValueToClipboard = useCallback(() => {
     if (value) {
-      copy(value);
+      copyToClipboard(value);
     }
-  };
+    // eslint-disable-next-line
+  }, [value]);
+
+  useHotkeys('ctrl+c', copyValueToClipboard, { scopes: [HotkeysScopes.MAIN] }, [copyValueToClipboard]);
 
   const renderPassword = () => (
     <Typography fontSize={PASSWORD_FONT_SIZE}>{ value || PLACEHOLDER_TEXT }</Typography>
@@ -85,7 +91,7 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
     };
 
     return (
-      <IconButton onMouseDown={(e) => e.preventDefault()} fill={getFill()} disabled={!value} onClick={copyValue}>
+      <IconButton onMouseDown={(e) => e.preventDefault()} fill={getFill()} disabled={!value} onClick={copyValueToClipboard}>
         <Icons.Copy />
       </IconButton>
     );
@@ -93,7 +99,7 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
 
   return (
     <Box
-      onClick={copyValue}
+      onClick={copyValueToClipboard}
       ref={hoverRef}
       bgcolor={greyDark}
       alignItems="center"

@@ -1,10 +1,11 @@
 import { Box, styled, useTheme } from '@mui/material';
 import { FC } from 'react';
 import { PasswordStrength } from '../../constants/password';
+import { StyledBoolean } from '../../style/constants';
 
 interface RectProps {
   color: string;
-  enabled: boolean;
+  enabled: StyledBoolean;
 }
 
 const Rect = styled(Box)<RectProps>`
@@ -12,7 +13,7 @@ const Rect = styled(Box)<RectProps>`
   width: 10px;
   height: 28px;
   position: relative;
-  border: 2px solid ${({ theme, enabled, color }) => (enabled ? color : theme.palette.white)};
+  border: 2px solid ${({ theme, enabled, color }) => (enabled === StyledBoolean.TRUE ? color : theme.palette.white)};
   
   &::before {
     content: '';
@@ -71,7 +72,7 @@ const RectIndicator: FC<RectIndicatorProps> = ({ strength }) => {
             <Rect
               key={i}
               color={strengthToColor[strength]}
-              enabled={strengthToDisplayedRects[strength] >= i}
+              enabled={strengthToDisplayedRects[strength] >= i ? StyledBoolean.TRUE : StyledBoolean.FALSE}
             />
           ))}
       </>
