@@ -11,6 +11,7 @@ const Wrapper = styled(Box)`
 
 const PageWrapper = styled(Box)`
   width: 540px;
+  max-width: 100%;
 `;
 
 const FormBox = styled(Box)`

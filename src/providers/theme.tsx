@@ -157,6 +157,7 @@ const style = css`
   body {
     background-Color: ${theme.palette.greyVeryDark};
     user-select: none;
+    min-width: 360px;
   }
 `;
 
