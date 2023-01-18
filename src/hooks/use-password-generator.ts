@@ -41,7 +41,7 @@ const usePasswordGenerator = () => {
     setGenerationParams((cur) => {
       const newParams = {
         ...cur,
-        [key]: typeof value === 'function' ? value(generationParams) : value,
+        [key]: res,
       };
 
       return isValidPasswordGenerationParams(newParams) ? newParams : cur;
