@@ -43,10 +43,8 @@ const AdaptiveTypography: FC<AdaptiveTypographyProps> = ({ fontSize, children, .
     setShowText(typographyScrollWidth === typographyWidth);
   };
 
-  // eslint-disable-next-line react/jsx-props-no-spreading
   return (
     <Wrapper show={showText}>
-      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <Typography {...rest} whiteSpace="nowrap" ref={checkTextSize} fontSize={currentFontSize}>
         {children}
       </Typography>

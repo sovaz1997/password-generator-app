@@ -1,5 +1,5 @@
 import { Box, styled, Typography } from '@mui/material';
-import { getColor } from '../utils/styled';
+import { getColor } from '@/utils/styled';
 
 const Wrapper = styled(Box)`
   box-sizing: border-box;

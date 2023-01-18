@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import { FC } from 'react';
-import Button from '../button/button';
-import Icons from '../icons';
+import Button from '@/components/button/button';
+import Icons from '@/components/icons';
 
 const ButtonContent = styled('div')`
   display: flex;

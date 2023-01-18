@@ -6,9 +6,9 @@ import {
   GlobalStyles,
   createStyles, css, alpha,
 } from '@mui/material';
-import JetBrainsMonoBoldWoff from '../assets/fonts/JetBrainsMono-Bold.woff';
-import JetBrainsMonoBoldWoff2 from '../assets/fonts/JetBrainsMono-Bold.woff2';
-import Icons from '../components/icons';
+import JetBrainsMonoBoldWoff from '@/assets/fonts/JetBrainsMono-Bold.woff';
+import JetBrainsMonoBoldWoff2 from '@/assets/fonts/JetBrainsMono-Bold.woff2';
+import Icons from '@/components/icons';
 
 const FONT_FAMILY = [
   '"JetBrains Mono"',

@@ -1,16 +1,16 @@
 import React, { FormEvent } from 'react';
-import { Box } from '@mui/material';
 import { useHotkeys } from 'react-hotkeys-hook';
-import GeneratePasswordButton from '../components/generate-password-button';
-import { getPasswordStrength } from '../utils/password';
-import PasswordField from '../components/password-field';
-import PasswordStrengthIndicator from '../components/password-strength-indicator';
-import PasswordClipboardProvider from '../providers/password-clipboard-provider';
-import usePasswordGenerator from '../hooks/use-password-generator';
-import CharsetControl from '../components/charset-control';
-import PasswordLengthControl from '../components/password-length-control';
+import { Box } from '@mui/material';
+import { getPasswordStrength } from '@/utils/password';
+import PasswordField from '@/components/password-field';
+import PasswordStrengthIndicator from '@/components/password-strength-indicator';
+import PasswordClipboardProvider from '@/providers/password-clipboard-provider';
+import usePasswordGenerator from '@/hooks/use-password-generator';
+import CharsetControl from '@/components/charset-control';
+import PasswordLengthControl from '@/components/password-length-control';
+import { HotkeysScopes } from '@/constants/hotkeys';
+import GeneratePasswordButton from '@/components/generate-password-button';
 import S from './app.style';
-import { HotkeysScopes } from '../constants/hotkeys';
 
 const App = () => {
   const {

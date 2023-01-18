@@ -1,6 +1,6 @@
-import { Box, styled, useTheme } from '@mui/material';
 import { FC } from 'react';
-import { PasswordStrength } from '../../constants/password';
+import { Box, styled, useTheme } from '@mui/material';
+import { PasswordStrength } from '@/constants/password';
 
 interface RectProps {
   color: string;

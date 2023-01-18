@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import {
   Checkbox, FormControlLabel, FormGroup, styled,
 } from '@mui/material';
-import { PasswordCharsSet } from '../../constants/password';
+import { PasswordCharsSet } from '@/constants/password';
 
 const CharsetToggleFormGroup = styled(FormGroup)`
   display: flex;

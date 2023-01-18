@@ -1,12 +1,12 @@
+import { FC, useRef } from 'react';
 import {
   Box, styled, useTheme, css,
 } from '@mui/material';
-import { FC, useRef } from 'react';
 import { useHover } from 'usehooks-ts';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { HotkeysScopes } from '../../constants/hotkeys';
-import AdaptiveTypography from '../adaptive-typography/adaptive-typography';
-import usePasswordClipboardContext from '../../hooks/use-password-clipboard-context';
+import { HotkeysScopes } from '@/constants/hotkeys';
+import AdaptiveTypography from '@/components/adaptive-typography';
+import usePasswordClipboardContext from '@/hooks/use-password-clipboard-context';
 import CopyButton from './copy-button';
 
 const PLACEHOLDER_TEXT = 'P4$5W0rD!';

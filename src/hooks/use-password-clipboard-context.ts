@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import PasswordClipboardContext, { PasswordClipboardContextType } from '../contexts/password-clipboard-context';
+import PasswordClipboardContext, { PasswordClipboardContextType } from '@/contexts/password-clipboard-context';
 
 const usePasswordClipboardContext = (): PasswordClipboardContextType => {
   const value = useContext(PasswordClipboardContext);

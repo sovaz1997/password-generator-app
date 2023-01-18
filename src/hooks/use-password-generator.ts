@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
-import { generatePassword, PasswordGenerationParams } from '../utils/password';
-import { PasswordCharsSet } from '../constants/password';
+import { generatePassword, PasswordGenerationParams } from '@/utils/password';
+import { PasswordCharsSet } from '@/constants/password';
 
 const DEFAULT_GENERATION_PARAMS: PasswordGenerationParams = {
   passwordCharsSets: [

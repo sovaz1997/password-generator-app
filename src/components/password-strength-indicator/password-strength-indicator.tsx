@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Box, Typography, useTheme } from '@mui/material';
-import { PasswordStrength } from '../../constants/password';
+import { PasswordStrength } from '@/constants/password';
 import RectIndicator from './rect-indicator';
 
 interface PasswordStrengthIndicatorProps {

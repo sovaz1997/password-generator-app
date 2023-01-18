@@ -2,7 +2,7 @@ import {
   FC, PropsWithChildren, useCallback, useMemo, useState,
 } from 'react';
 import { useCopyToClipboard } from 'usehooks-ts';
-import PasswordClipboardContext, { PasswordClipboardContextType } from '../contexts/password-clipboard-context';
+import PasswordClipboardContext, { PasswordClipboardContextType } from '@/contexts/password-clipboard-context';
 
 interface PasswordClipboardProviderProps {
   password: string;
