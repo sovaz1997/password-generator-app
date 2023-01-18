@@ -3,8 +3,6 @@ import {
   Box, Slider, styled, Typography, useTheme,
 } from '@mui/material';
 
-const PASSWORD_LENGTH_RANGE = { from: 4, to: 30 };
-
 const isNumber = (x: any): x is number => typeof x === 'number';
 
 const Wrapper = styled(Box)`
@@ -22,11 +20,15 @@ const LengthViewer = styled(Box)`
 interface PasswordLengthControlProps {
   value: number;
   onChange: (value: number) => void;
+  min: number;
+  max: number
 }
 
 // TODO: Add new variants to typography (from Figma)
 
-const PasswordLengthControl: FC<PasswordLengthControlProps> = ({ value, onChange }) => {
+const PasswordLengthControl: FC<PasswordLengthControlProps> = ({
+  value, onChange, min, max,
+}) => {
   const theme = useTheme();
   const handleChange = (e: Event, length: number | number[]) => {
     if (!isNumber(length)) {
@@ -46,8 +48,8 @@ const PasswordLengthControl: FC<PasswordLengthControlProps> = ({ value, onChange
         value={value}
         onChange={handleChange}
         step={1}
-        min={PASSWORD_LENGTH_RANGE.from}
-        max={PASSWORD_LENGTH_RANGE.to}
+        min={min}
+        max={max}
       />
     </Wrapper>
   );

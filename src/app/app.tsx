@@ -14,7 +14,7 @@ import S from './app.style';
 
 const App = () => {
   const {
-    generationParams, generateNewPassword, password, updateParam,
+    generationParams, generateNewPassword, password, updateParam, lengthRange,
   } = usePasswordGenerator();
 
   useHotkeys(
@@ -43,6 +43,8 @@ const App = () => {
               <PasswordLengthControl
                 value={generationParams.length}
                 onChange={(v) => updateParam('length', v)}
+                min={lengthRange.from}
+                max={lengthRange.to}
               />
               <CharsetControl
                 value={generationParams.passwordCharsSets}
