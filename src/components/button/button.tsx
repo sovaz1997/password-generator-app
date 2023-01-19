@@ -1,7 +1,7 @@
 import {
   Button as MButton, styled,
 } from '@mui/material';
-import { getColor } from '../../utils/styled';
+import { getColor } from '@/utils/styled';
 
 const Button = styled(MButton)`
   background-color: ${getColor('greenNeon')};
@@ -19,6 +19,10 @@ const Button = styled(MButton)`
     color: ${getColor('greenNeon')};
     fill: ${getColor('greenNeon')};
   }
+
+  ${(p) => p.theme.breakpoints.down('md')} {
+    height: 56px;
+  };
 `;
 
 export default Button;

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Box, Typography, useTheme } from '@mui/material';
 import { PasswordStrength } from '@/constants/password';
 import RectIndicator from './rect-indicator';
+import S from './password-strength-indicator.style';
 
 interface PasswordStrengthIndicatorProps {
   strength: PasswordStrength;
@@ -11,7 +12,7 @@ const PasswordStrengthIndicator: FC<PasswordStrengthIndicatorProps> = ({ strengt
   const theme = useTheme();
   const {
     palette: {
-      greyVeryDark, greyDefault,
+      greyDefault,
     },
   } = theme;
 
@@ -23,14 +24,7 @@ const PasswordStrengthIndicator: FC<PasswordStrengthIndicatorProps> = ({ strengt
   };
 
   return (
-    <Box
-      bgcolor={greyVeryDark}
-      paddingX={4}
-      display="flex"
-      alignItems="center"
-      justifyContent="space-between"
-      height="72px"
-    >
+    <S.Wrapper>
       <Typography textTransform="uppercase" color={greyDefault}>Strength</Typography>
       <Box display="flex" alignItems="center" gap={2}>
         <>
@@ -40,7 +34,7 @@ const PasswordStrengthIndicator: FC<PasswordStrengthIndicatorProps> = ({ strengt
           <RectIndicator strength={strength} />
         </>
       </Box>
-    </Box>
+    </S.Wrapper>
   );
 };
 
