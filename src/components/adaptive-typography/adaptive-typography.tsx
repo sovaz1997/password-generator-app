@@ -1,5 +1,5 @@
 import React, {
-  FC, useState,
+  FC, useEffect, useRef, useState,
 } from 'react';
 import {
   Box, styled, Typography, TypographyProps,
@@ -30,7 +30,10 @@ const AdaptiveTypography: FC<AdaptiveTypographyProps> = ({ fontSize, children, .
     restoreFontSizeOnChildrenUpdate();
   }, [fontSize, children]);
 
+  const ref = useRef<HTMLSpanElement | null>(null);
+
   const checkTextSize = (newTypographyRef: HTMLSpanElement) => {
+    ref.current = newTypographyRef;
     const typographyScrollWidth = newTypographyRef?.scrollWidth;
     const typographyWidth = newTypographyRef?.offsetWidth;
 
@@ -42,6 +45,19 @@ const AdaptiveTypography: FC<AdaptiveTypographyProps> = ({ fontSize, children, .
 
     setShowText(typographyScrollWidth === typographyWidth);
   };
+
+  useEffect(() => {
+    const resizeCheck = () => {
+      setCurrentFontSize(fontSize);
+      if (ref.current) {
+        checkTextSize(ref.current);
+      }
+    };
+
+    window.addEventListener('resize', resizeCheck);
+
+    return () => window.removeEventListener('resize', resizeCheck);
+  }, [fontSize]);
 
   return (
     <Wrapper show={showText}>
