@@ -11,12 +11,8 @@ This is a solution to the [Password generator app challenge on Frontend Mentor](
 - [My process](#my-process)
     - [Built with](#built-with)
     - [What I learned](#what-i-learned)
-    - [Continued development](#continued-development)
     - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -49,8 +45,6 @@ Users should be able to:
 - [React](https://reactjs.org/) - JS library
 - [Vite](https://vitejs.dev/) - Project builder
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
-
 ### What I learned
 
 - How to customize MUI styles
@@ -63,9 +57,6 @@ I would like to focus on projects with animations as well as completely native c
 ### Useful resources
 
 - [Password entropy calculator](https://generatepasswords.org/how-to-calculate-entropy/) - This helped me for calculate password strength reason. I see that it good algorithm to detect password strength and it's allow to calculate strength for any length of password.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
 
 ## Author
 
