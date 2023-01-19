@@ -9,7 +9,6 @@ const Button = styled(MButton)`
   height: 65px;
   border-radius: 0;
   border: 2px solid ${getColor('greenNeon')};
-  font-size: 18px;
   color: ${getColor('greyDark')};
   fill: ${getColor('greyDark')};
   transition-property: background-color, box-shadow, border-color, color, fill;
