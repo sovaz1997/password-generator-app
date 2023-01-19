@@ -49,6 +49,22 @@ const theme = createTheme({
       textAlign: 'center',
       color: COLORS.GREY_DEFAULT,
     },
+    HeadingL: {
+      fontSize: '32px',
+      lineHeight: '43px',
+    },
+    HeadingM: {
+      fontSize: '24px',
+      lineHeight: '31px',
+    },
+    BodyL: {
+      fontSize: '18px',
+      lineHeight: '23px',
+    },
+    BodyM: {
+      fontSize: '16px',
+      lineHeight: '21px',
+    },
   },
   components: {
     MuiCssBaseline: {
@@ -157,7 +173,8 @@ const style = css`
   body {
     background-Color: ${theme.palette.greyVeryDark};
     user-select: none;
-    min-width: 360px;
+    min-width: 380px;
+    padding: 0 16px;
   }
 `;
 

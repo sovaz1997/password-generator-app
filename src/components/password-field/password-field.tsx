@@ -1,6 +1,6 @@
 import { FC, useRef } from 'react';
 import {
-  Box, styled, useTheme, css,
+  Box, css, styled, useTheme,
 } from '@mui/material';
 import { useHover } from 'usehooks-ts';
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -8,8 +8,10 @@ import { HotkeysScopes } from '@/constants/hotkeys';
 import AdaptiveTypography from '@/components/adaptive-typography';
 import usePasswordClipboardContext from '@/hooks/use-password-clipboard-context';
 import CopyButton from './copy-button';
+import useScreenSize, { ScreenTypes } from '@/hooks/use-screen-size';
 
 const PLACEHOLDER_TEXT = 'P4$5W0rD!';
+const PASSWORD_FONT_SIZE_MOBILE = 24;
 const PASSWORD_FONT_SIZE = 32;
 
 interface PasswordFieldProps {
@@ -42,8 +44,12 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
 
   useHotkeys('ctrl+c', passwordClipboard.copy, { scopes: [HotkeysScopes.MAIN], enableOnFormTags: true }, [value]);
 
+  const screenSize = useScreenSize();
+
   const renderPassword = () => (
-    <AdaptiveTypography fontSize={PASSWORD_FONT_SIZE}>{ value || PLACEHOLDER_TEXT }</AdaptiveTypography>
+    <AdaptiveTypography fontSize={screenSize === ScreenTypes.MOBILE ? PASSWORD_FONT_SIZE_MOBILE : PASSWORD_FONT_SIZE}>
+      { value || PLACEHOLDER_TEXT }
+    </AdaptiveTypography>
   );
 
   const renderCopyIcon = () => (
@@ -63,7 +69,7 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
       alignItems="center"
       display="flex"
       justifyContent="space-between"
-      height={80}
+      height={screenSize === ScreenTypes.MOBILE ? 64 : 80}
       paddingX={4}
       sx={{
         cursor: value ? 'pointer' : 'default',

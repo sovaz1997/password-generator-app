@@ -11,8 +11,11 @@ import PasswordLengthControl from '@/components/password-length-control';
 import { HotkeysScopes } from '@/constants/hotkeys';
 import GeneratePasswordButton from '@/components/generate-password-button';
 import S from './app.style';
+import useScreenSize, { ScreenTypes } from '@/hooks/use-screen-size';
 
 const App = () => {
+  const screenSize = useScreenSize();
+
   const {
     generationParams, generateNewPassword, password, updateParam, lengthRange,
   } = usePasswordGenerator();
@@ -33,11 +36,11 @@ const App = () => {
     <PasswordClipboardProvider password={password}>
       <S.Wrapper>
         <S.PageWrapper>
-          <S.Title variant="h1">
+          <S.Title variant={screenSize === ScreenTypes.MOBILE ? 'BodyM' : 'HeadingM'}>
             Password generator
           </S.Title>
           <PasswordField value={password} />
-          <Box height={24} />
+          <Box height={screenSize === ScreenTypes.MOBILE ? 16 : 24} />
           <form onSubmit={handleSubmit}>
             <S.FormBox>
               <PasswordLengthControl

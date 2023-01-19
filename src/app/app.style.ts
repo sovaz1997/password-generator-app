@@ -23,8 +23,14 @@ const FormBox = styled(Box)`
 `;
 
 const Title = styled(Typography)`
-  padding-top: 32px;
   margin-bottom: 32px;
+  text-align: center;
+  padding-top: 133px;
+  display: block;
+  
+  ${(p) => p.theme.breakpoints.down('md')} {
+      padding-top: 64px;
+  };
 `;
 
 export default {
