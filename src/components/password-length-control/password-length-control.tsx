@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import {
   Box, Slider, styled, Typography, useTheme,
 } from '@mui/material';
+import useScreenSize, { ScreenTypes } from '@/hooks/use-screen-size';
 
 const isNumber = (x: any): x is number => typeof x === 'number';
 
@@ -23,13 +24,11 @@ interface PasswordLengthControlProps {
   min: number;
   max: number
 }
-
-// TODO: Add new variants to typography (from Figma)
-
 const PasswordLengthControl: FC<PasswordLengthControlProps> = ({
   value, onChange, min, max,
 }) => {
   const theme = useTheme();
+  const screenSize = useScreenSize();
   const handleChange = (e: Event, length: number | number[]) => {
     if (!isNumber(length)) {
       throw new Error('Length must be a number');
@@ -41,8 +40,17 @@ const PasswordLengthControl: FC<PasswordLengthControlProps> = ({
   return (
     <Wrapper>
       <LengthViewer>
-        <Typography fontSize={18}>Character Length</Typography>
-        <Typography color={theme.palette.greenNeon} fontSize={24}>{value}</Typography>
+        <Typography
+          variant={screenSize === ScreenTypes.MOBILE ? 'BodyM' : 'BodyL'}
+        >
+          Character Length
+        </Typography>
+        <Typography
+          color={theme.palette.greenNeon}
+          variant={screenSize === ScreenTypes.MOBILE ? 'HeadingM' : 'HeadingL'}
+        >
+          {value}
+        </Typography>
       </LengthViewer>
       <Slider
         value={value}

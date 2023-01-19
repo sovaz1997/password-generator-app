@@ -100,6 +100,8 @@ const theme = createTheme({
 
           '.MuiSlider-thumb:hover, .Mui-active, .Mui-focusVisible': {
             boxShadow: `0 0 0 8px ${alpha(COLORS.GREEN_NEON, 0.16)} !important`,
+            backgroundColor: COLORS.GREY_VERY_DARK,
+            border: `2px solid ${COLORS.GREEN_NEON}`,
           },
         },
         thumbColorPrimary: '#000000',
@@ -108,6 +110,8 @@ const theme = createTheme({
           color: COLORS.WHITE,
           width: '28px',
           height: '28px',
+          boxSizing: 'content-box',
+          transition: 'all background-color 0.1s ease-out',
         },
         rail: {
           color: COLORS.GREY_VERY_DARK,
