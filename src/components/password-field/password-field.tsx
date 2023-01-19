@@ -1,7 +1,4 @@
 import { FC, useRef } from 'react';
-import {
-  Box, css, styled, useTheme,
-} from '@mui/material';
 import { useHover } from 'usehooks-ts';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { HotkeysScopes } from '@/constants/hotkeys';
@@ -9,6 +6,7 @@ import AdaptiveTypography from '@/components/adaptive-typography';
 import usePasswordClipboardContext from '@/hooks/use-password-clipboard-context';
 import CopyButton from './copy-button';
 import useScreenSize, { ScreenTypes } from '@/hooks/use-screen-size';
+import S from './password-field.style';
 
 const PLACEHOLDER_TEXT = 'P4$5W0rD!';
 const PASSWORD_FONT_SIZE_MOBILE = 24;
@@ -18,26 +16,8 @@ interface PasswordFieldProps {
   value: string;
 }
 
-interface PasswordContentProps {
-  disabled: boolean
-}
-
-const PasswordContent = styled(Box)<PasswordContentProps>`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: 10px;
-
-  ${(p) => p.disabled && css`opacity: 0.25`}
-`;
-
 const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
-  const theme = useTheme();
-
   const passwordClipboard = usePasswordClipboardContext();
-
-  const { palette: { greyDark } } = theme;
 
   const hoverRef = useRef(null);
   const isHover = useHover(hoverRef);
@@ -61,25 +41,18 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
     />
   );
 
+  // TODO: Split by style
   return (
-    <Box
+    <S.Wrapper
       onClick={passwordClipboard.copy}
       ref={hoverRef}
-      bgcolor={greyDark}
-      alignItems="center"
-      display="flex"
-      justifyContent="space-between"
-      height={screenSize === ScreenTypes.MOBILE ? 64 : 80}
-      paddingX={4}
-      sx={{
-        cursor: value ? 'pointer' : 'default',
-      }}
+      cursorPointer={!!value}
     >
-      <PasswordContent disabled={!value}>
+      <S.PasswordContent disabled={!value}>
         { renderPassword() }
         { renderCopyIcon() }
-      </PasswordContent>
-    </Box>
+      </S.PasswordContent>
+    </S.Wrapper>
   );
 };
 

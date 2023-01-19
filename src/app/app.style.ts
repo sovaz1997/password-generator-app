@@ -20,6 +20,10 @@ const FormBox = styled(Box)`
   gap: 24px;
   display: flex;
   flex-direction: column;
+
+  ${(p) => p.theme.breakpoints.down('md')} {
+    padding: 16px;
+  };
 `;
 
 const Title = styled(Typography)`
