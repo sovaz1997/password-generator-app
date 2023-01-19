@@ -10,8 +10,9 @@ const Wrapper = styled(Box)`
   justify-content: space-between;
   height: 72px;
   
-  ${(p) => p.theme.breakpoints.down('lg')} {
+  ${(p) => p.theme.breakpoints.down('md')} {
     height: 56px;
+    padding: 0 16px;
   }
 `;
 export default {

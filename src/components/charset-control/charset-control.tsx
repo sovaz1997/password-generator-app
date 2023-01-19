@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import {
-  Checkbox, FormControlLabel, FormGroup, styled,
+  Checkbox, FormControlLabel, FormGroup, styled, Typography,
 } from '@mui/material';
 import { PasswordCharsSet } from '@/constants/password';
+import useScreenSize, { ScreenTypes } from '@/hooks/use-screen-size';
 
 const CharsetToggleFormGroup = styled(FormGroup)`
   display: flex;
@@ -23,6 +24,8 @@ interface CharsetSelectorProps {
 }
 
 const CharsetControl: FC<CharsetSelectorProps> = ({ value, onChange }) => {
+  const screenSize = useScreenSize();
+
   const handleChange = (set: PasswordCharsSet, checked: boolean) => {
     const charsSet = new Set([...value]);
 
@@ -47,7 +50,13 @@ const CharsetControl: FC<CharsetSelectorProps> = ({ value, onChange }) => {
             disabled={isChecked && value.length === 1}
           />
         )}
-        label={CHAR_SETS_LABEL_MAP[set]}
+        label={(
+          <Typography
+            variant={screenSize === ScreenTypes.MOBILE ? 'BodyM' : 'BodyL'}
+          >
+            {CHAR_SETS_LABEL_MAP[set]}
+          </Typography>
+        )}
       />
     );
   };

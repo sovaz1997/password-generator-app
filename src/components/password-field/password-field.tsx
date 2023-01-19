@@ -41,7 +41,6 @@ const PasswordField: FC<PasswordFieldProps> = ({ value }) => {
     />
   );
 
-  // TODO: Split by style
   return (
     <S.Wrapper
       onClick={passwordClipboard.copy}

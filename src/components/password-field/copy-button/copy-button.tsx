@@ -14,7 +14,7 @@ const Wrapper = styled(Box)`
   position: relative;
   display: flex;
   justify-content: flex-end;
-  width: 105px;
+  width: 115px;
   z-index: 0;
 `;
 
@@ -75,7 +75,7 @@ const CopyButton: FC<CopyButtonProps> = ({
 
   return (
     <Wrapper>
-      <CopiedText show={showCopiedText} color={fill} textTransform="uppercase">Copied</CopiedText>
+      <CopiedText show={showCopiedText} color={fill} textTransform="uppercase" variant="BodyL">Copied</CopiedText>
       <IconButton
         onMouseDown={(e) => e.preventDefault()}
         fill={fill}
