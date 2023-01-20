@@ -31,6 +31,7 @@ const Title = styled(Typography)`
   text-align: center;
   padding-top: 133px;
   display: block;
+  color: ${getColor('greyDefault')};
   
   ${(p) => p.theme.breakpoints.down('md')} {
       padding-top: 64px;
