@@ -175,7 +175,7 @@ const theme = createTheme({
 
 const style = css`
   body {
-    background-color: ${COLORS.GREY_DARK};
+    background-color: ${COLORS.GREY_VERY_DARK};
     user-select: none;
     min-width: 380px;
     padding: 0 16px;
