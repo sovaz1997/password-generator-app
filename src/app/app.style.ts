@@ -7,6 +7,11 @@ const Wrapper = styled(Box)`
   height: 100%;
   align-items: center;
   justify-content: center;
+  padding: 0 16px;
+
+  ${(p) => p.theme.breakpoints.down('sm')} {
+    padding: 0;
+  }
 `;
 
 const PageWrapper = styled(Box)`

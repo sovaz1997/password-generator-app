@@ -177,8 +177,7 @@ const style = css`
   body {
     background-color: ${COLORS.GREY_VERY_DARK};
     user-select: none;
-    min-width: 360px;
-    padding: 0 16px;
+    min-width: 320px;
   }
 `;
 
