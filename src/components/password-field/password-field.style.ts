@@ -1,4 +1,4 @@
-import { Box, css, styled } from '@mui/material';
+import { Box, styled } from '@mui/material';
 import { getColor } from '@/utils/styled';
 
 interface PasswordContentProps {
