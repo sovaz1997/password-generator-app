@@ -1,8 +1,8 @@
 import {
   generatePassword,
-  getPossibleCharsInSet,
   getPasswordEntropy,
   getPasswordStrengthFromEntropy,
+  getPossibleCharsInSet,
 } from './password';
 import { PasswordCharsSet, PasswordStrength } from '../../constants/password';
 
@@ -360,6 +360,40 @@ describe('Password tests', () => {
     it('Trying to generate password without any PasswordCharsSet should be impossible', () => {
       expect(() => generatePassword(
         { length: 10, passwordCharsSets: [] },
+      )).toThrowError('passwordCharsSet couldn\'t be empty');
+    });
+
+    it('Password always have at least one item from every', () => {
+      const charSets = [
+        PasswordCharsSet.Digits,
+        PasswordCharsSet.LowercaseLetters,
+        PasswordCharsSet.UppercaseLetters,
+        PasswordCharsSet.SpecialSymbols,
+      ];
+      const generate = (length: number) => generatePassword({ length, passwordCharsSets: charSets });
+
+      const setsMap: Record<PasswordCharsSet, string> = {
+        [PasswordCharsSet.Digits]: CHAR_SETS.DIGITS,
+        [PasswordCharsSet.LowercaseLetters]: CHAR_SETS.LOWERCASE_LETTERS,
+        [PasswordCharsSet.UppercaseLetters]: CHAR_SETS.UPPERCASE_LETTERS,
+        [PasswordCharsSet.SpecialSymbols]: CHAR_SETS.SPECIAL_SYMBOLS,
+      };
+
+      const charsFromSetIsExistsInPassword = (password: string, set: PasswordCharsSet) => password
+        .split('')
+        .some((char) => setsMap[set].includes(char));
+
+      const charsFromSetsIsExistsInPassword = (password: string) => charSets
+        .every((set) => charsFromSetIsExistsInPassword(password, set));
+
+      for (let i = 0; i < ITERATIONS; i += 1) {
+        const longPassword = generate(30);
+        expect(charsFromSetsIsExistsInPassword(longPassword)).toBeTruthy();
+        const shortPassword = generate(4);
+        expect(charsFromSetsIsExistsInPassword(shortPassword)).toBeTruthy();
+      }
+      expect(() => generatePassword(
+        { length: 4, passwordCharsSets: [] },
       )).toThrowError('passwordCharsSet couldn\'t be empty');
     });
   });

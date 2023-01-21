@@ -36,24 +36,42 @@ const getMergedCharsFromSets = (sets: PasswordCharsSet[]) => sets
 export const getPossibleCharsInSet = (set: PasswordCharsSet): string[] => PASSWORD_CHARS[set].split('');
 
 export const generatePassword = ({ length, passwordCharsSets }: PasswordGenerationParams): string => {
-  if (passwordCharsSets.length === 0) {
-    throw new Error('passwordCharsSet couldn\'t be empty');
-  }
+  const charsFromSetIsExistsInPassword = (password: string, set: PasswordCharsSet) => password
+    .split('')
+    .some((char) => PASSWORD_CHARS[set].includes(char));
 
-  const generatePasswordChar = () => {
-    const randomBetween = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
+  const charsFromSetsIsExistsInPassword = (password: string) => passwordCharsSets
+    .every((set) => charsFromSetIsExistsInPassword(password, set));
 
-    const availableChars = getMergedCharsFromSets(passwordCharsSets);
+  const generate = () => {
+    if (passwordCharsSets.length === 0) {
+      throw new Error('passwordCharsSet couldn\'t be empty');
+    }
 
-    return availableChars[
-      randomBetween(0, availableChars.length)
-    ];
+    const generatePasswordChar = () => {
+      const randomBetween = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
+
+      const availableChars = getMergedCharsFromSets(passwordCharsSets);
+
+      return availableChars[
+        randomBetween(0, availableChars.length)
+      ];
+    };
+
+    return new Array(length)
+      .fill(0)
+      .map(generatePasswordChar)
+      .join('');
   };
 
-  return new Array(length)
-    .fill(0)
-    .map(generatePasswordChar)
-    .join('');
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const password = generate();
+
+    if (charsFromSetsIsExistsInPassword(password)) {
+      return password;
+    }
+  }
 };
 
 export const getPasswordEntropy = ({ length, passwordCharsSets }: PasswordGenerationParams) => {
